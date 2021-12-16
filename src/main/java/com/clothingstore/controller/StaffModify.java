@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.clothingstore;
+package com.clothingstore.controller;
 
 import java.sql.DriverManager;
 import java.util.List;
@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.clothingstore.entity.Staff;
 /**
  *
  * @author ACER
