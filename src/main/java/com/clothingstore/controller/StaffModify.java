@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import com.clothingstore.entity.Staff;
 /**
  *
- * @author ACER
+ * @author Avocado
  */
 public class StaffModify {
     public static List<Staff> findAll(){
