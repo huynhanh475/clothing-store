@@ -305,7 +305,6 @@ public class StaffFrame extends javax.swing.JFrame {
             
             int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this item");
             
-            System.out.println("option: "+ option);
             if (option==0){
                 StaffModify.delete(stf.getId());
                 showStaff();
