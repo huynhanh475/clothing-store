@@ -13,15 +13,22 @@ import java.sql.Date;
 public class Customer extends User {
     
     protected int expenditure;
-    protected char ranking;
+    protected String ranking;
     protected int id;
 
-    public Customer(int expenditure, char ranking, int id, String full_name, Date birthday, String phone, String mail) {
+    public Customer(int expenditure, String ranking, int id, String full_name, Date birthday, String phone, String mail) {
         super(full_name, birthday, phone, mail);
         this.expenditure = expenditure;
         this.ranking = ranking;
         this.id = id;
     }
+
+    public Customer(int expenditure, String ranking, String full_name, Date birthday, String phone, String mail) {
+        super(full_name, birthday, phone, mail);
+        this.expenditure = expenditure;
+        this.ranking = ranking;
+    }
+    
 
     public int getExpenditure() {
         return expenditure;
@@ -31,11 +38,11 @@ public class Customer extends User {
         this.expenditure = expenditure;
     }
 
-    public char getRanking() {
+    public String getRanking() {
         return ranking;
     }
 
-    public void setRanking(char ranking) {
+    public void setRanking(String ranking) {
         this.ranking = ranking;
     }
 

@@ -17,7 +17,7 @@ import com.clothingstore.entity.Staff;
  *
  * @author Avocado
  */
-public class StaffModify {
+public class StaffModify extends UserModifier{
     public static List<Staff> findAll(){
         List<Staff> StaffList = new ArrayList<>();
         
