@@ -15,19 +15,32 @@ public class Product {
     protected int quantity;
     protected int price;
     protected String brand;
-    protected String size;
-    protected String color;
 
-    public Product(String prodcode, String prodname, String category, int quantity, int price, String brand, String size, String color) {
+    public Product(String prodcode, String prodname, String category, int quantity, int price, String brand) {
         this.prodcode = prodcode;
         this.prodname = prodname;
         this.category = category;
         this.quantity = quantity;
         this.price = price;
         this.brand = brand;
-        this.size = size;
-        this.color = color;
     }
+
+    public Product(String prodcode, String prodname, String category, int price, String brand) {
+        this.prodcode = prodcode;
+        this.prodname = prodname;
+        this.category = category;
+        this.price = price;
+        this.brand = brand;
+    }
+
+    public Product(String prodname, String category, int price, String brand) {
+        this.prodname = prodname;
+        this.category = category;
+        this.price = price;
+        this.brand = brand;
+    }
+    
+    
 
     public String getProdcode() {
         return prodcode;
@@ -76,22 +89,4 @@ public class Product {
     public void setBrand(String brand) {
         this.brand = brand;
     }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-    
-    
 }
