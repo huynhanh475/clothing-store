@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package com.clothingstore.frame.staff;
+import com.clothingstore.controller.StaffModify;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import com.clothingstore.entity.Staff;
+import java.sql.Date;
 
 /**
  *
@@ -27,9 +29,6 @@ public class StaffFrame extends javax.swing.JFrame {
         initComponents();
         tableModel = (DefaultTableModel) tblstaff.getModel();
         showStaff();
-        
-        
-
     }
     
     private void showStaff(){
@@ -231,6 +230,11 @@ public class StaffFrame extends javax.swing.JFrame {
                 "Id", "Full Name", "Birthday", "Phone", "Email", "Date started", "Salary"
             }
         ));
+        tblstaff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblstaffMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblstaff);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -269,11 +273,12 @@ public class StaffFrame extends javax.swing.JFrame {
 
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
         txtfullname.setText("");
-        datestarted.setDate(null);
+        datebirthday.setDate(null);
         txtphone.setText("");
         txtmail.setText("");
         datestarted.setDate(null);
         txtsalary.setText("");
+        showStaff();
     }//GEN-LAST:event_btnresetActionPerformed
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
@@ -300,7 +305,6 @@ public class StaffFrame extends javax.swing.JFrame {
             
             int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this item");
             
-            System.out.println("option: "+ option);
             if (option==0){
                 StaffModify.delete(stf.getId());
                 showStaff();
@@ -320,6 +324,18 @@ public class StaffFrame extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_btnfindActionPerformed
+
+    private void tblstaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblstaffMouseClicked
+        int selectedIndex = tblstaff.getSelectedRow();
+        if (selectedIndex>=0){
+            txtfullname.setText(tblstaff.getValueAt(selectedIndex, 1).toString());
+            datebirthday.setDate((Date) tblstaff.getValueAt(selectedIndex,2));
+            txtphone.setText(tblstaff.getValueAt(selectedIndex, 3).toString());
+            txtmail.setText(tblstaff.getValueAt(selectedIndex, 4).toString());
+            datestarted.setDate((Date) tblstaff.getValueAt(selectedIndex,5));
+            txtsalary.setText(tblstaff.getValueAt(selectedIndex, 6).toString());
+        }
+    }//GEN-LAST:event_tblstaffMouseClicked
 
     /**
      * @param args the command line arguments
