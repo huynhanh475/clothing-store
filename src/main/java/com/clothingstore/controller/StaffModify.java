@@ -126,7 +126,7 @@ public class StaffModify extends UserModifier{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
             // query
-            String sql = "update Staff set full_name=?, birthday=?, phone=?, mail=?, date_started=?, salary=?) where id=?";
+            String sql = "update Staff set full_name=?, birthday=?, phone=?, mail=?, date_started=?, salary=? where id=?";
             statement = connection.prepareCall(sql);
             
             statement.setString(1, stf.getFull_name());
