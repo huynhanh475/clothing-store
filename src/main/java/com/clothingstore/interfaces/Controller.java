@@ -19,8 +19,7 @@ public interface Controller<T> {
         Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(ENDPOINT, USERNAME, PASSWORD);
-            return connection;
+            return DriverManager.getConnection(ENDPOINT, USERNAME, PASSWORD);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
