@@ -1,4 +1,4 @@
-package com.clothingstore.bean;
+package com.clothingstore.interfaces;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

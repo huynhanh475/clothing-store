@@ -4,7 +4,7 @@
  */
 package com.clothingstore.frame.staff;
 
-import com.clothingstore.controller.ProductModify;
+import com.clothingstore.controller.ProductController;
 import com.clothingstore.entity.Product;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ProductFrame extends javax.swing.JFrame {
    
     
     private void showProduct(){
-        ProductList = ProductModify.findAll();
+        ProductList = ProductController.findAll();
         tableModel.setRowCount(0);
         ProductList.forEach((prod) -> {
             tableModel.addRow(new Object[]{prod.getProdcode(), prod.getProdname(), prod.getCategory(),
@@ -316,7 +316,7 @@ public class ProductFrame extends javax.swing.JFrame {
     private void btnloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloadActionPerformed
         String cat = catcombo.getItemAt(catcombo.getSelectedIndex());
         String quan = quantitycombo.getItemAt(quantitycombo.getSelectedIndex());
-        ProductList = ProductModify.findAll(cat, quan);
+        ProductList = ProductController.findAll(cat, quan);
             tableModel.setRowCount(0);
             ProductList.forEach((prod) -> {
                 tableModel.addRow(new Object[]{prod.getProdcode(), prod.getProdname(), prod.getCategory(),
@@ -338,7 +338,7 @@ public class ProductFrame extends javax.swing.JFrame {
         String brand = txtbrand.getText();
         int price = Integer.parseInt(txtprice.getText());
         Product prd = new Product(prodcode,name, category, price, brand);
-        ProductModify.insert(prd);
+        ProductController.insert(prd);
         JOptionPane.showMessageDialog(this, "Successfully Added");
         showProduct();
     }//GEN-LAST:event_btnaddActionPerformed
@@ -350,14 +350,14 @@ public class ProductFrame extends javax.swing.JFrame {
         String brand = txtbrand.getText();
         int price = Integer.parseInt(txtprice.getText());
         Product prd = new Product(name, category, price, brand);
-        ProductModify.update(prd, prodcode);
+        ProductController.update(prd, prodcode);
         JOptionPane.showMessageDialog(this, "Succesfully saved");
         showProduct();
     }//GEN-LAST:event_btneditActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         String prodfind = txtcode.getText();
-        ProductList = ProductModify.findbyid(prodfind);
+        ProductList = ProductController.findbyid(prodfind);
         if (ProductList.isEmpty()){
             JOptionPane.showMessageDialog(this, "Cannot find! Please enter correct Product Code or try again");
         }
@@ -389,7 +389,7 @@ public class ProductFrame extends javax.swing.JFrame {
         int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this item");
             
         if (option==0){
-            ProductModify.delete(choice);
+            ProductController.delete(choice);
             showProduct();
          }
     }//GEN-LAST:event_btndeleteActionPerformed

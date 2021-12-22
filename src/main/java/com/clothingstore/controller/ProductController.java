@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author ACER
  */
-public class ProductModify {
+public class ProductController {
     
     public static List<Product> findAll(){
         List<Product> ProductList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class ProductModify {
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
           
@@ -47,20 +47,20 @@ public class ProductModify {
                 ProductList.add(prd);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -81,7 +81,7 @@ public class ProductModify {
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -118,20 +118,20 @@ public class ProductModify {
                 ProductList.add(prd);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -148,7 +148,7 @@ public class ProductModify {
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -163,20 +163,20 @@ public class ProductModify {
             statement.setString(5, prd.getBrand());
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } 
@@ -191,7 +191,7 @@ public class ProductModify {
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -206,20 +206,20 @@ public class ProductModify {
             
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } 
@@ -234,7 +234,7 @@ public class ProductModify {
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -244,20 +244,20 @@ public class ProductModify {
             statement.setString(1, prodcode);
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } 
@@ -274,7 +274,7 @@ public class ProductModify {
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             sql = "select * from Product where prodcode = '"+id+"'";
@@ -287,20 +287,20 @@ public class ProductModify {
                 ProductList.add(prd);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

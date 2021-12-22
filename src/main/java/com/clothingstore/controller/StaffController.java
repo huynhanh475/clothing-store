@@ -17,7 +17,7 @@ import com.clothingstore.entity.Staff;
  *
  * @author Avocado
  */
-public class StaffModify extends UserModifier{
+public class StaffController {
     public static List<Staff> findAll(){
         List<Staff> StaffList = new ArrayList<>();
         
@@ -29,7 +29,7 @@ public class StaffModify extends UserModifier{
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -46,20 +46,20 @@ public class StaffModify extends UserModifier{
                 StaffList.add(stf);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -76,7 +76,7 @@ public class StaffModify extends UserModifier{
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -93,20 +93,20 @@ public class StaffModify extends UserModifier{
        
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } 
@@ -121,7 +121,7 @@ public class StaffModify extends UserModifier{
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -138,20 +138,20 @@ public class StaffModify extends UserModifier{
             statement.setInt(7, stf.getId());
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } 
@@ -166,7 +166,7 @@ public class StaffModify extends UserModifier{
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -176,20 +176,20 @@ public class StaffModify extends UserModifier{
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } 
@@ -206,7 +206,7 @@ public class StaffModify extends UserModifier{
                 // retrieve the list of staff
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
             }
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             
@@ -224,20 +224,20 @@ public class StaffModify extends UserModifier{
                 StaffList.add(stf);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if (statement != null){
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(StaffModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
