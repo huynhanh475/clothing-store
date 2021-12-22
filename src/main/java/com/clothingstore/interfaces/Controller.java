@@ -33,9 +33,11 @@ public interface Controller<T> {
 
     public void update(T object);
 
-    public void delete(int id);
+    public void delete(T object);
 
     public List<T> findById(int id);
+
+    public List<T> findById(String code);
 
     public List<T> findAll();
 }

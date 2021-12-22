@@ -251,7 +251,9 @@ public class CustomerFrame extends javax.swing.JFrame {
             Customer ctm = CustomerList.get(selectedIndex);
             int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this customer");
             if (option==0){
-                customerController.delete(ctm.getId());
+                customerController.delete(ctm);
+                JOptionPane.showMessageDialog(this, "Successfully Deleted");
+                showCustomer();
             }
         }
     }//GEN-LAST:event_deleteActionPerformed

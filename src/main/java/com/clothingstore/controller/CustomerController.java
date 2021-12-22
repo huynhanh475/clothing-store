@@ -23,8 +23,6 @@ import java.util.logging.Logger;
  */
 public class CustomerController implements Controller<Customer>{
 
-    public CustomerController() {
-    }
     @Override
     public List<Customer> findAll(){
         List<Customer> CustomerList = new ArrayList<>();
@@ -169,7 +167,7 @@ public class CustomerController implements Controller<Customer>{
     }
     
     @Override
-    public void delete(int id){
+    public void delete(Customer ctm){
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -186,7 +184,7 @@ public class CustomerController implements Controller<Customer>{
             // query
             String sql = "delete from customer where id=?";
             statement = connection.prepareCall(sql);
-            statement.setInt(1, id);
+            statement.setInt(1, ctm.getId());
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
@@ -256,6 +254,12 @@ public class CustomerController implements Controller<Customer>{
         }
         //end connection
         return CustomerList;
+    }
+
+    @Override
+    public List<Customer> findById(String code) {
+        // This doesn't do anything as the customer id is not a string
+        return null;
     }
     
     
