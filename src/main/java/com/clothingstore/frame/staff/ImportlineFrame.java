@@ -6,14 +6,20 @@ package com.clothingstore.frame.staff;
 
 
 import com.clothingstore.controller.Importlinecontroller;
-import com.clothingstore.controller.ProductModify;
-import com.clothingstore.controller.StaffModify;
+import com.clothingstore.controller.Productcontroller;
+import com.clothingstore.controller.Staffcontroller;
 import com.clothingstore.entity.ImportLine;
 import com.clothingstore.entity.Product;
 import com.clothingstore.entity.Staff;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,13 +34,13 @@ public class ImportlineFrame extends javax.swing.JFrame {
     /**
      * Creates new form ImportlineFrame
      */
-    public ImportlineFrame() {
+    public ImportlineFrame() throws SQLException {
         initComponents();
         tableModel = (DefaultTableModel) tblimport.getModel();
         showImport();
     }
     
-    private void showImport(){
+    private void showImport() throws SQLException{
         ImportList = Importlinecontroller.findAll();
         tableModel.setRowCount(0);
         ImportList.forEach((imp) -> {
@@ -64,6 +70,15 @@ public class ImportlineFrame extends javax.swing.JFrame {
         txtdate = new javax.swing.JTextField();
         txtquantity = new javax.swing.JTextField();
         btnadd = new javax.swing.JButton();
+        btndelete = new javax.swing.JButton();
+        btnfind = new javax.swing.JButton();
+        btnreset = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        txtdatefrom = new javax.swing.JTextField();
+        txtdateto = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnload = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblimport = new javax.swing.JTable();
 
@@ -92,7 +107,7 @@ public class ImportlineFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Quantity:");
 
-        txtdate.setText("2012-12-25");
+        txtdate.setText("yyyy-mm-dd");
 
         btnadd.setText("Add");
         btnadd.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +115,81 @@ public class ImportlineFrame extends javax.swing.JFrame {
                 btnaddActionPerformed(evt);
             }
         });
+
+        btndelete.setText("Delete");
+        btndelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeleteActionPerformed(evt);
+            }
+        });
+
+        btnfind.setText("Find");
+        btnfind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnfindActionPerformed(evt);
+            }
+        });
+
+        btnreset.setText("Reset");
+        btnreset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnresetActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtering panel"));
+
+        txtdatefrom.setText("yyyy-mm-dd");
+
+        txtdateto.setText("yyyy-mm-dd");
+
+        jLabel1.setText("From:");
+
+        jLabel4.setText("To:");
+
+        btnload.setText("Load table");
+        btnload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnloadActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtdatefrom, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtdateto, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(83, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnload, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtdatefrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtdateto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnload)
+                .addGap(54, 54, 54))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,42 +203,60 @@ public class ImportlineFrame extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtquantity, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btndelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnfind)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnreset))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtcode, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtquantity, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtquantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(btnadd)
+                            .addComponent(jLabel3)
+                            .addComponent(txtcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtquantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnadd)
+                    .addComponent(btndelete)
+                    .addComponent(btnfind)
+                    .addComponent(btnreset))
                 .addContainerGap())
         );
 
@@ -167,6 +275,11 @@ public class ImportlineFrame extends javax.swing.JFrame {
                 "Import Id", "Staff Id", "Product Code", "Date imported", "Quantity"
             }
         ));
+        tblimport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblimportMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblimport);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,39 +287,134 @@ public class ImportlineFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-        int id = Integer.parseInt(txtid.getText());
-        String code = txtcode.getText();
-        Date date = Date.valueOf(txtdate.getText());
-        int quantity = Integer.parseInt(txtquantity.getText());
-        boolean check=true;
-        if (Importlinecontroller.checkvalid(id)==false||Importlinecontroller.checkvalid(code)==false){
-            JOptionPane.showMessageDialog(this, "Invalid Staff Id or Product Code. Please check again!");
-            check=false;
+        try {
+            int id = Integer.parseInt(txtid.getText());
+            String code = txtcode.getText();
+            Date date = Date.valueOf(txtdate.getText());
+            int quantity = Integer.parseInt(txtquantity.getText());
+            boolean check=true;
+            if (Importlinecontroller.checkvalid(id)==false||Importlinecontroller.checkvalid(code)==false){
+                JOptionPane.showMessageDialog(this, "Invalid Staff Id or Product Code. Please check again!");
+                check=false;
+            }
+            if (check==true){
+                try {
+                    Product prd = Productcontroller.findbyid(code).get(0);
+                    Staff stf = Staffcontroller.findbyid(id).get(0);
+                    ImportLine ipl = new ImportLine(date, stf, quantity, prd);
+                    Importlinecontroller.insert(ipl);
+                    JOptionPane.showMessageDialog(this, "Successfully added");
+                    Importlinecontroller.update_quantity(quantity, prd,"insert");
+                } catch (SQLException ex) {
+                    Logger.getLogger(ImportlineFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            showImport();
+        } catch (SQLException ex) {
+            Logger.getLogger(ImportlineFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (check==true){
-            Product prd = ProductModify.findbyid(code).get(0);
-            Staff stf = StaffModify.findbyid(id).get(0);
-            ImportLine ipl = new ImportLine(date, stf, quantity, prd);
-            Importlinecontroller.insert(ipl);
-            JOptionPane.showMessageDialog(this, "Successfully added");
-            Importlinecontroller.update_quantity_plus(quantity, prd);
-        }
-        showImport();
     }//GEN-LAST:event_btnaddActionPerformed
+
+    private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
+        try {
+            String input = JOptionPane.showInputDialog(this,"Enter the id of the import line you want to search?");
+            if (Importlinecontroller.checkvalidimport(Integer.parseInt(input))==false){
+                JOptionPane.showMessageDialog(this, "That import line does not exist");
+            }
+            
+            if (Integer.parseInt(input)>0 && input!=null){
+                ImportList = Importlinecontroller.findAll(Integer.parseInt(input));
+                ImportLine imp = ImportList.get(0);
+                tableModel.setRowCount(0);
+                tableModel.addRow(new Object[]{imp.getId(), imp.getPerformer().getId(), imp.getCode().getProdcode(),
+                    imp.getDate(), imp.getQuantity()});
+                
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String text = df.format(imp.getDate());
+                txtid.setText(Integer.toString(imp.getPerformer().getId()));
+                txtcode.setText(imp.getCode().getProdcode());
+                txtdate.setText(text);
+                txtquantity.setText(Integer.toString(imp.getQuantity()));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ImportlineFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnfindActionPerformed
+
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+        try {
+            String input = JOptionPane.showInputDialog(this,"Enter the id of the import line you want to delete?");
+            if (!Importlinecontroller.checkvalidimport(Integer.parseInt(input))){
+                JOptionPane.showMessageDialog(this,"Invalid ID of import line");
+            }
+            else{
+                int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this order line");
+                ImportLine ipl = Importlinecontroller.findAll(Integer.parseInt(input)).get(0);
+                int quantity = ipl.getQuantity();
+                Product prd = ipl.getCode();
+                
+                if (option==0){
+                    Importlinecontroller.delete(Integer.parseInt(input));
+                    Importlinecontroller.update_quantity(quantity, prd, "delete");
+                    showImport();
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ImportlineFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btndeleteActionPerformed
+
+    private void tblimportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblimportMouseClicked
+        int selectedIndex = tblimport.getSelectedRow();
+        if (selectedIndex>=0){
+            txtid.setText(tblimport.getValueAt(selectedIndex, 1).toString());
+            txtcode.setText(tblimport.getValueAt(selectedIndex, 2).toString());
+            txtdate.setText(tblimport.getValueAt(selectedIndex, 3).toString());
+            txtquantity.setText(tblimport.getValueAt(selectedIndex, 4).toString());
+        }
+    }//GEN-LAST:event_tblimportMouseClicked
+
+    private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
+        try {
+            txtid.setText("");
+            txtcode.setText("");
+            txtquantity.setText("");
+            showImport();
+        } catch (SQLException ex) {
+            Logger.getLogger(ImportlineFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnresetActionPerformed
+
+    private void btnloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloadActionPerformed
+        Date fromdate = Date.valueOf(txtdatefrom.getText());
+        Date todate = Date.valueOf(txtdateto.getText());
+        try {
+            ImportList = Importlinecontroller.filterdate(fromdate, todate);
+        } catch (SQLException ex) {
+            Logger.getLogger(ImportlineFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tableModel.setRowCount(0);
+        ImportList.forEach((imp) -> {
+            tableModel.addRow(new Object[]{imp.getId(), imp.getPerformer().getId(), imp.getCode().getProdcode(),
+                imp.getDate(), imp.getQuantity()});
+        });
+        
+    }//GEN-LAST:event_btnloadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,24 +446,37 @@ public class ImportlineFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ImportlineFrame().setVisible(true);
+                try {
+                    new ImportlineFrame().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ImportlineFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnadd;
+    private javax.swing.JButton btndelete;
+    private javax.swing.JButton btnfind;
+    private javax.swing.JButton btnload;
+    private javax.swing.JButton btnreset;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblimport;
     private javax.swing.JTextField txtcode;
     private javax.swing.JTextField txtdate;
+    private javax.swing.JTextField txtdatefrom;
+    private javax.swing.JTextField txtdateto;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtquantity;
     // End of variables declaration//GEN-END:variables
