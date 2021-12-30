@@ -359,13 +359,18 @@ public class CustomerFrame extends javax.swing.JFrame {
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         int selectedIndex = tblcustomer.getSelectedRow();
+        Customer ctm = CustomerList.get(selectedIndex);
         if (selectedIndex>=0){
             int id = Integer.parseInt(tblcustomer.getValueAt(selectedIndex, 0).toString());
             String fullname = txtfullname.getText();
             Date birthday = Date.valueOf(birthdate.getText());
             String phone = txtphone.getText();
             String email = txtemail.getText();
-            Customercontroller.update(id, fullname, birthday, phone, email);
+            ctm.setFull_name(fullname);
+            ctm.setBirthday(birthday);
+            ctm.setPhone(phone);
+            ctm.setMail(email);
+            customerController.update(ctm);
             showCustomer();
         } 
     }//GEN-LAST:event_editActionPerformed
@@ -373,7 +378,7 @@ public class CustomerFrame extends javax.swing.JFrame {
     private void phonefindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phonefindActionPerformed
         String input = JOptionPane.showInputDialog(this,"Enter the phone of the customer you want to search:");
         if (Integer.parseInt(input)>0 && input!=null){
-            CustomerList = Customercontroller.findbyproperty(input);
+            CustomerList = customerController.findById(input);
             if (CustomerList.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Cannot find this customer. Please check again!");
             }

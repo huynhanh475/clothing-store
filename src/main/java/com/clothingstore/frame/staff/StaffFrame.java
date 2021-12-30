@@ -329,7 +329,7 @@ public class StaffFrame extends javax.swing.JFrame {
         String input = JOptionPane.showInputDialog(this,"Enter ID to search:");
         if (Integer.parseInt(input)>0 && input != null){
 
-            StaffList = staffController.findbyid(Integer.parseInt(input));
+            StaffList = staffController.findById(Integer.parseInt(input));
             if (StaffList.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Cannot find this staff. Please check again!");
             }
@@ -396,7 +396,8 @@ public class StaffFrame extends javax.swing.JFrame {
             String email = txtmail.getText();
             Date datestart = Date.valueOf(datestarted.getText());
             int salary = Integer.parseInt(txtsalary.getText());
-            Staffcontroller.update(id, fullname, birthday, phone, email, datestart, salary);
+            Staff stf = new Staff(id, fullname, birthday, phone, email, datestart, salary);
+            staffController.update(stf);
             showStaff();
         } 
     }//GEN-LAST:event_btneditActionPerformed
