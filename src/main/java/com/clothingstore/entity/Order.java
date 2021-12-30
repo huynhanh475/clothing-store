@@ -1,6 +1,7 @@
 package com.clothingstore.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Order {
     private int id;
@@ -8,9 +9,17 @@ public class Order {
     private Customer customer;
     private Date date;
     private int totalMoney;
+    private List<OrderLine> orderLines;
 
     public Order(int id, Staff performer, Customer customer, Date date, int totalMoney) {
         this.id = id;
+        this.performer = performer;
+        this.customer = customer;
+        this.date = date;
+        this.totalMoney = totalMoney;
+    }
+
+    public Order(Staff performer, Customer customer, Date date, int totalMoney) {
         this.performer = performer;
         this.customer = customer;
         this.date = date;
@@ -55,6 +64,14 @@ public class Order {
 
     public void setTotalMoney(int totalMoney) {
         this.totalMoney = totalMoney;
+    }
+    
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
     }
 
 }
