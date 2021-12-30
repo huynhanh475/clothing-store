@@ -5,8 +5,9 @@
 package com.clothingstore.controller;
 
 import com.clothingstore.entity.Product;
+import com.clothingstore.interfaces.Controller;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,54 +21,81 @@ import java.util.logging.Logger;
  *
  * @author ACER
  */
-public class Productcontroller {
-    
-    public static List<Product> findAll(){
+public class ProductController implements Controller<Product> {
+    @Override
+    public List<Product> findAll(){
+        List<Product> ProductList = new ArrayList<>();
+        
+        Connection connection = null;
+        Statement statement = null;
+        String sql;
         try {
-            List<Product> ProductList = new ArrayList<>();
-            
-            Connection connection = null;
-            Statement statement = null;
-            String sql;
-            
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
-            sql = "select * from Product order by quantity asc";
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            connection = Controller.getConnection();
+          
+            sql = "select * from product order by quantity asc";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             
-            while (resultSet.next()){
+            while (resultSet.next()){ 
                 Product prd;
-                prd = new Product(resultSet.getString("prodcode"),resultSet.getString("prodname"),resultSet.getString("category"), resultSet.getInt("quantity"), resultSet.getInt("price"), resultSet.getString("brand"));
+                prd = new Product(resultSet.getString("prod_code"),resultSet.getString("prod_name"),resultSet.getString("category"), resultSet.getInt("quantity"), resultSet.getInt("price"), resultSet.getString("brand"));
                 ProductList.add(prd);
             }
-            //end connection
-            return ProductList;
         } catch (SQLException ex) {
-            Logger.getLogger(Productcontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        return null;
+        //end connection
+        return ProductList;
     }
     
-    
-    public static List<Product> findAll(String cate, String order){
+    public List<Product> findAll(String cate, String order){
+        List<Product> ProductList = new ArrayList<>();
+        
+        Connection connection = null;
+        Statement statement = null;
+        String sql;
+        String concat = (cate=="All")? " where quantity=0": " and quantity=0";
         try {
-            List<Product> ProductList = new ArrayList<>();
-            
-            Connection connection = null;
-            Statement statement = null;
-            String sql;
-            String concat = (cate=="All")? " where quantity=0": " and quantity=0";
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            connection = Controller.getConnection();
             
             switch (cate) {
                 case "Women-clothes":
-                    sql = "select * from Product where category='Women-clothes'";
+                    sql = "select * from product where category='Women-clothes'";
                     break;
                 case "Men-clothes":
-                    sql = "select * from Product where category='Men-clothes'";
+                    sql = "select * from product where category='Men-clothes'";
                     break;
                 default:
-                    sql = "select * from Product";
+                    sql = "select * from product"; 
                     break;
             }
             
@@ -79,36 +107,57 @@ public class Productcontroller {
                     sql = sql + " order by quantity desc";
                     break;
                 default:
-                    sql = sql + " order by quantity asc";
+                    sql = sql + " order by quantity asc"; 
                     break;
             }
-            
+
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             
-            while (resultSet.next()){
+            while (resultSet.next()){ 
                 Product prd;
-                prd = new Product(resultSet.getString("prodcode"),resultSet.getString("prodname"),resultSet.getString("category"), resultSet.getInt("quantity"), resultSet.getInt("price"), resultSet.getString("brand"));
+                prd = new Product(resultSet.getString("prod_code"),resultSet.getString("prod_name"),resultSet.getString("category"), resultSet.getInt("quantity"), resultSet.getInt("price"), resultSet.getString("brand"));
                 ProductList.add(prd);
             }
-            
-            //end connection
-            return ProductList;
         } catch (SQLException ex) {
-            Logger.getLogger(Productcontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        return null;
+        //end connection
+        return ProductList;
     }
     
-    public static void insert(Product prd){
+    @Override
+    public void insert(Product prd){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
         try {
-            Connection connection = null;
-            PreparedStatement statement = null;
-            
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            connection = Controller.getConnection();
             
             // query
-            String sql = "insert into Product(prodcode, prodname, category, quantity, price, brand) values(?,?,?,0,?,?)";
+            String sql = "insert into product(prod_code, prod_name, category, quantity, price, brand) values(?,?,?,0,?,?)";
             statement = connection.prepareCall(sql);
             
             statement.setString(1, prd.getProdcode());
@@ -118,71 +167,161 @@ public class Productcontroller {
             statement.setString(5, prd.getBrand());
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(Productcontroller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } 
     }
     
-    public static void update(Product prd, String prodcode){
+    @Override
+    public void update(Product prd){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
         try {
-            Connection connection = null;
-            PreparedStatement statement = null;
-            
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            connection = Controller.getConnection();
             
             // query
-            String sql = "update Product set prodname=?, category=?, price=?, brand=? where prodcode=?";
+            String sql = "update product set prod_name=?, category=?, price=?, brand=? where prod_code=?";
             statement = connection.prepareCall(sql);
             statement.setString(1, prd.getProdname());
             statement.setString(2, prd.getCategory());
             statement.setInt(3, prd.getPrice());
             statement.setString(4, prd.getBrand());
-            statement.setString(5, prodcode);
+            statement.setString(5, prd.getProdcode());
             
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(Productcontroller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } 
     }
     
-    public static void delete(String prodcode){
+    @Override
+    public void delete(Product prod){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
         try {
-            Connection connection = null;
-            PreparedStatement statement = null;
-            
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            connection = Controller.getConnection();
             
             // query
-            String sql = "delete from Product where prodcode=?";
+            String sql = "delete from product where prod_code=?";
             statement = connection.prepareCall(sql);
-            statement.setString(1, prodcode);
+            statement.setString(1, prod.getProdcode());
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(Productcontroller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } 
     }
     
-    public static List<Product> findbyid(String id){
+    @Override
+    public List<Product> findById(String code){
+        List<Product> ProductList = new ArrayList<>();
+        
+        Connection connection = null;
+        Statement statement = null;
+        String sql;
         try {
-            List<Product> ProductList = new ArrayList<>();
-            
-            Connection connection = null;
-            Statement statement = null;
-            String sql;
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
-            sql = "select * from Product where prodcode = '"+id+"'";
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            connection = Controller.getConnection();
+
+            sql = "select * from product where prod_code = '"+ code +"'";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             
-            while (resultSet.next()){
+            while (resultSet.next()){ 
                 Product prd;
-                prd = new Product(resultSet.getString("prodcode"),resultSet.getString("prodname"),resultSet.getString("category"), resultSet.getInt("quantity"), resultSet.getInt("price"), resultSet.getString("brand"));
+                prd = new Product(resultSet.getString("prod_code"),resultSet.getString("prod_name"),resultSet.getString("category"), resultSet.getInt("quantity"), resultSet.getInt("price"), resultSet.getString("brand"));
                 ProductList.add(prd);
             }
-            //end connection
-            return ProductList;
         } catch (SQLException ex) {
-            Logger.getLogger(Productcontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
+        //end connection
+        return ProductList;
+    }
+
+    @Override
+    public List<Product> findById(int id) {
+        // This doesn't do anything as the int id is not used in this class
         return null;
     }
 }
