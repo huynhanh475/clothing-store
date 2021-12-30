@@ -5,9 +5,9 @@
 package com.clothingstore.controller;
 
 import com.clothingstore.entity.Customer;
+import com.clothingstore.interfaces.Controller;
+
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,41 +21,76 @@ import java.util.logging.Logger;
  *
  * @author ACER
  */
-public class Customercontroller extends Usercontroller{
-    public static List<Customer> findAll(){
+public class CustomerController implements Controller<Customer>{
+
+    @Override
+    public List<Customer> findAll(){
+        List<Customer> CustomerList = new ArrayList<>();
+        
+        Connection connection = null;
+        Statement statement = null;
+        
         try {
-            List<Customer> CustomerList = new ArrayList<>();
-            Connection connection = null;
-            Statement statement = null;
-            
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
-            
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
+
+            connection = Controller.getConnection();
+
             // query
             String sql = "select * from customer";
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             
-            while (resultSet.next()){
+            while (resultSet.next()){ 
                 Customer ctm;
                 java.sql.Date bd = resultSet.getDate("birthday");
                 ctm = new Customer(resultSet.getInt("expenditure"), resultSet.getString("ranking"), resultSet.getInt("id"), resultSet.getString("full_name"), bd, resultSet.getString("phone"), resultSet.getString("mail"));
                 CustomerList.add(ctm);
             }
-            return CustomerList;
         } catch (SQLException ex) {
-            Logger.getLogger(Customercontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        return null;
+        //end connection
+        return CustomerList;
     }
     
-    public static void insert(Customer ctm){
+    @Override
+    public void insert(Customer ctm){
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
         try {
-            Connection connection = null;
-            PreparedStatement statement = null;
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
-            
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
+            connection = Controller.getConnection();
             // query
-            String sql = "insert into Customer(full_name, birthday, phone, mail, expenditure, ranking) values(?,?,?,?,?,?)";
+            String sql = "insert into customer(full_name, birthday, phone, mail, expenditure, ranking) values(?,?,?,?,?,?)";
             statement = connection.prepareCall(sql);
             
             statement.setString(1, ctm.getFull_name());
@@ -64,87 +99,172 @@ public class Customercontroller extends Usercontroller{
             statement.setString(4, ctm.getMail());
             statement.setInt(5, ctm.getExpenditure());
             statement.setString(6, ctm.getRanking());
-            
-            statement.execute(); 
-        } catch (SQLException ex) {
-            Logger.getLogger(Customercontroller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public static void update(int id, String fullname, Date birthday, String phone, String mail){
-        try {
-            Connection connection = null;
-            PreparedStatement statement = null;
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
-            
-            // query
-            String sql = "update Customer set full_name=?, birthday=?, phone=?, mail=? where id=?";
-            statement = connection.prepareCall(sql);
-            statement.setString(1, fullname);
-            statement.setDate(2, birthday);
-            statement.setString(3,phone);
-            statement.setString(4, mail);
-            statement.setInt(5, id);
+       
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(Customercontroller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } 
     }
     
-    
-    public static void delete(int id){
+    @Override
+    public void update(Customer ctm){
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
         try {
-            Connection connection = null;
-            PreparedStatement statement = null;
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
-            
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
+            connection = Controller.getConnection();
+
             // query
-            String sql = "delete from Customer where id=?";
+            String sql = "update customer set full_name=?, birthday=?, phone=?, mail=? where id=?";
             statement = connection.prepareCall(sql);
-            statement.setInt(1, id);
-            statement.execute(); 
+            
+            statement.setString(1, ctm.getFull_name());
+            statement.setDate(2, new java.sql.Date(ctm.getBirthday().getTime()));
+            statement.setString(3, ctm.getPhone());
+            statement.setString(4, ctm.getMail());
+            statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(Customercontroller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } 
     }
     
-    public static List<Customer> findbyproperty(int id){
+    @Override
+    public void delete(Customer ctm){
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
         try {
-            List<Customer> CustomerList = new ArrayList<>();
-            
-            Connection connection = null;
-            PreparedStatement statement = null;
-            
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
-            
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
+            connection = Controller.getConnection();
             // query
-            String sql = "select * from Customer where id = ?";
+            String sql = "delete from customer where id=?";
+            statement = connection.prepareCall(sql);
+            statement.setInt(1, ctm.getId());
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } 
+    }
+    
+    @Override
+    public List<Customer> findById(int id){
+        List<Customer> CustomerList = new ArrayList<>();
+        
+        Connection connection = null;
+        PreparedStatement statement = null;
+        
+        try {
+            // try {
+            //     // retrieve the list of staff
+            //     Class.forName("com.mysql.cj.jdbc.Driver");
+            // } catch (ClassNotFoundException ex) {
+            //     Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+            // }
+            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
+            connection = Controller.getConnection();
+            // query
+            String sql = "select * from customer where id = ?";
             statement = connection.prepareCall(sql);
             statement.setInt(1,id);
             ResultSet resultSet = statement.executeQuery();
             
-            while (resultSet.next()){
+            while (resultSet.next()){ 
                 Customer ctm;
                 java.sql.Date bd = resultSet.getDate("birthday");
                 ctm = new Customer(resultSet.getInt("expenditure"), resultSet.getString("ranking"), resultSet.getInt("id"), resultSet.getString("full_name"), bd, resultSet.getString("phone"), resultSet.getString("mail"));
                 CustomerList.add(ctm);
             }
-            //end connection
-            return CustomerList;
         } catch (SQLException ex) {
-            Logger.getLogger(Customercontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        return null;
+        //end connection
+        return CustomerList;
     }
-    
-    public static List<Customer> findbyproperty(String phone){
+
+    @Override //Instead of find by code, find by Customer's phone, which is also unique
+    public List<Customer> findById(String phone) {
         try {
-            List<Customer> CustomerList = new ArrayList<>();
+            List<Customer> customerList = new ArrayList<>();
             
             Connection connection = null;
             PreparedStatement statement = null;
             
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
+            connection = Controller.getConnection();
             
             // query
             String sql = "select * from Customer where phone = ?";
@@ -156,13 +276,14 @@ public class Customercontroller extends Usercontroller{
                 Customer ctm;
                 java.sql.Date bd = resultSet.getDate("birthday");
                 ctm = new Customer(resultSet.getInt("expenditure"), resultSet.getString("ranking"), resultSet.getInt("id"), resultSet.getString("full_name"), bd, resultSet.getString("phone"), resultSet.getString("mail"));
-                CustomerList.add(ctm);
+                customerList.add(ctm);
             }
             //end connection
-            return CustomerList;
+            return customerList;
         } catch (SQLException ex) {
-            Logger.getLogger(Customercontroller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
+    
 }
