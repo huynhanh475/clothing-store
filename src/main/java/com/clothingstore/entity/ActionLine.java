@@ -16,12 +16,6 @@ public class ActionLine {
         this.product = product;
     }
 
-    public ActionLine(int quantity, Product code) {
-        this.quantity = quantity;
-        this.code = code;
-    }
-    
-
     public int getId() {
         return id;
     }
