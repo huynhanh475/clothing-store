@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.clothingstore.frame.staff;
+package com.clothingstore.frame;
 
 import com.clothingstore.controller.StaffController;
 import java.util.ArrayList;
