@@ -10,6 +10,12 @@ public class OrderLine extends ActionLine {
         this.price = price;
     }
 
+    public OrderLine(int quantity, Product code, Order order, int price) {
+        super(quantity, code);
+        this.order = order;
+        this.price = price;
+    }
+
     public Order getOrder() {
         return order;
     }

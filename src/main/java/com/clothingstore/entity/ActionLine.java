@@ -3,12 +3,17 @@ package com.clothingstore.entity;
 public class ActionLine {
     protected int id;
     protected int quantity;
-    protected Product code;
+    protected Product product;
 
-    public ActionLine(int id, int quantity, Product code) {
+    public ActionLine(int id, int quantity, Product product) {
         this.id = id;
         this.quantity = quantity;
-        this.code = code;
+        this.product = product;
+    }
+
+    public ActionLine(int quantity, Product product) {
+        this.quantity = quantity;
+        this.product = product;
     }
 
     public ActionLine(int quantity, Product code) {
@@ -33,12 +38,11 @@ public class ActionLine {
         this.quantity = quantity;
     }
 
-    public Product getCode() {
-        return code;
+    public Product getProduct() {
+        return product;
     }
-
-    public void setCode(Product code) {
-        this.code = code;
+    public void setProduct(Product product) {
+        this.product = product;
     }
     
 }

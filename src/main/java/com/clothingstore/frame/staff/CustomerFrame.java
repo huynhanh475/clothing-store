@@ -4,7 +4,7 @@
  */
 package com.clothingstore.frame.staff;
 
-import com.clothingstore.controller.Customercontroller;
+import com.clothingstore.controller.CustomerController;
 import com.clothingstore.entity.Customer;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -31,8 +31,9 @@ public class CustomerFrame extends javax.swing.JFrame {
     
     
     private void showCustomer(){
-        CustomerList = Customercontroller.findAll();
-        
+
+        CustomerList = customerController.findAll();
+
         tableModel.setRowCount(0);
         CustomerList.forEach((customer) -> {
             tableModel.addRow(new Object[]{customer.getId(), customer.getFull_name(),
@@ -299,9 +300,10 @@ public class CustomerFrame extends javax.swing.JFrame {
         Date birthday = Date.valueOf(birthdate.getText());
         String phone = txtphone.getText();
         String email = txtemail.getText();
-        Customer ctm = new Customer(0,"copper",fullname, birthday, phone, email);
-        Customercontroller.insert(ctm);
-        
+
+        Customer ctm = new Customer(0,"NULL",fullname, birthday, phone, email);
+        customerController.insert(ctm);
+
         JOptionPane.showMessageDialog(this, "Successfully Added");
         showCustomer();
     }//GEN-LAST:event_saveActionPerformed
@@ -312,7 +314,11 @@ public class CustomerFrame extends javax.swing.JFrame {
             Customer ctm = CustomerList.get(selectedIndex);
             int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this customer");
             if (option==0){
-                Customercontroller.delete(ctm.getId());
+
+                customerController.delete(ctm);
+                JOptionPane.showMessageDialog(this, "Successfully Deleted");
+                showCustomer();
+
             }
         }
         showCustomer();
@@ -321,11 +327,13 @@ public class CustomerFrame extends javax.swing.JFrame {
     private void idfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idfindActionPerformed
         String input = JOptionPane.showInputDialog(this,"Enter the id of the customer you want to search:");
         if (Integer.parseInt(input)>0 && input!=null){
-            CustomerList = Customercontroller.findbyproperty(Integer.parseInt(input));
+
+            CustomerList = customerController.findById(Integer.parseInt(input));
             if (CustomerList.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Cannot find this customer. Please check again!");
             }
             Customer ctm = CustomerList.get(0);
+
             tableModel.setRowCount(0);
             CustomerList.forEach((cust) -> {
                 tableModel.addRow(new Object[]{cust.getId(), cust.getFull_name(),
@@ -440,5 +448,6 @@ public class CustomerFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtfullname;
     private javax.swing.JTextField txtphone;
+    private CustomerController customerController = new CustomerController();
     // End of variables declaration//GEN-END:variables
 }

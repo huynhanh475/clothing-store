@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package com.clothingstore.frame.staff;
-import com.clothingstore.controller.Staffcontroller;
+
+import com.clothingstore.controller.StaffController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -32,7 +33,9 @@ public class StaffFrame extends javax.swing.JFrame {
     }
     
     private void showStaff(){
-        StaffList = Staffcontroller.findAll();
+
+        StaffList = staffController.findAll();
+
         tableModel.setRowCount(0);
         StaffList.forEach((staff) -> {
             tableModel.addRow(new Object[]{staff.getId(), staff.getFull_name(),
@@ -298,7 +301,9 @@ public class StaffFrame extends javax.swing.JFrame {
         Date datestart = Date.valueOf(datestarted.getText());
         int salary = Integer.parseInt(txtsalary.getText());
         Staff stf = new Staff(fullname,birthday, phone, mail, datestart, salary);
-        Staffcontroller.insert(stf);
+
+        staffController.insert(stf);
+
         JOptionPane.showMessageDialog(this, "Successfully Added");
         showStaff();
     }//GEN-LAST:event_btnsaveActionPerformed
@@ -311,7 +316,10 @@ public class StaffFrame extends javax.swing.JFrame {
             int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this staff?");
             
             if (option==0){
-                Staffcontroller.delete(stf.getId());
+                
+                staffController.delete(stf);
+                JOptionPane.showMessageDialog(this, "Successfully Deleted");
+
                 showStaff();
             }
         }
@@ -320,11 +328,13 @@ public class StaffFrame extends javax.swing.JFrame {
     private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
         String input = JOptionPane.showInputDialog(this,"Enter ID to search:");
         if (Integer.parseInt(input)>0 && input != null){
-            StaffList = Staffcontroller.findbyid(Integer.parseInt(input));
+
+            StaffList = staffController.findbyid(Integer.parseInt(input));
             if (StaffList.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Cannot find this staff. Please check again!");
             }
             Staff stf = StaffList.get(0);
+
             tableModel.setRowCount(0);
             StaffList.forEach((staff) -> {
                 tableModel.addRow(new Object[]{staff.getId(), staff.getFull_name(),
@@ -447,5 +457,6 @@ public class StaffFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtmail;
     private javax.swing.JTextField txtphone;
     private javax.swing.JTextField txtsalary;
+    private StaffController staffController = new StaffController();
     // End of variables declaration//GEN-END:variables
 }
