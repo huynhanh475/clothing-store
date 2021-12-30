@@ -31,7 +31,9 @@ public class CustomerFrame extends javax.swing.JFrame {
     
     
     private void showCustomer(){
+
         CustomerList = customerController.findAll();
+
         tableModel.setRowCount(0);
         CustomerList.forEach((customer) -> {
             tableModel.addRow(new Object[]{customer.getId(), customer.getFull_name(),
@@ -59,11 +61,15 @@ public class CustomerFrame extends javax.swing.JFrame {
         txtphone = new javax.swing.JTextField();
         txtfullname = new javax.swing.JTextField();
         txtemail = new javax.swing.JTextField();
-        birthdate = new com.toedter.calendar.JDateChooser();
         save = new javax.swing.JButton();
-        reset = new javax.swing.JButton();
         delete = new javax.swing.JButton();
-        find = new javax.swing.JButton();
+        birthdate = new javax.swing.JTextField();
+        edit = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        idfind = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        phonefind = new javax.swing.JButton();
+        reset = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblcustomer = new javax.swing.JTable();
 
@@ -100,13 +106,6 @@ public class CustomerFrame extends javax.swing.JFrame {
             }
         });
 
-        reset.setText("Reset");
-        reset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetActionPerformed(evt);
-            }
-        });
-
         delete.setText("Delete");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,48 +113,107 @@ public class CustomerFrame extends javax.swing.JFrame {
             }
         });
 
-        find.setText("Find");
-        find.addActionListener(new java.awt.event.ActionListener() {
+        birthdate.setText("2012-12-23");
+
+        edit.setText("Edit");
+        edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findActionPerformed(evt);
+                editActionPerformed(evt);
             }
         });
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        idfind.setText("ID");
+        idfind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idfindActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Find");
+
+        phonefind.setText("Phone");
+        phonefind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phonefindActionPerformed(evt);
+            }
+        });
+
+        reset.setText("Reset");
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(idfind, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(phonefind)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idfind)
+                    .addComponent(phonefind))
+                .addGap(18, 18, 18)
+                .addComponent(reset)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtfullname, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(birthdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(birthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(delete)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(edit))
+                                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(47, 47, 47)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(save)
-                        .addGap(18, 18, 18)
-                        .addComponent(reset)
-                        .addGap(18, 18, 18)
-                        .addComponent(delete)
-                        .addGap(18, 18, 18)
-                        .addComponent(find)))
-                .addContainerGap(199, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(save)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtfullname, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,25 +222,29 @@ public class CustomerFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtfullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(birthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(birthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save)
-                    .addComponent(reset)
                     .addComponent(delete)
-                    .addComponent(find))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(edit))
+                .addContainerGap())
         );
 
         tblcustomer.setModel(new javax.swing.table.DefaultTableModel(
@@ -212,7 +274,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +289,7 @@ public class CustomerFrame extends javax.swing.JFrame {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         txtfullname.setText("");
-        birthdate.setDate(null);
+        birthdate.setText("2012-12-23");
         txtphone.setText("");
         txtemail.setText("");
         showCustomer();
@@ -235,12 +297,13 @@ public class CustomerFrame extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         String fullname = txtfullname.getText();
-        java.util.Date birth = birthdate.getDate();
-        java.sql.Date birthday = new java.sql.Date(birth.getTime());
+        Date birthday = Date.valueOf(birthdate.getText());
         String phone = txtphone.getText();
         String email = txtemail.getText();
+
         Customer ctm = new Customer(0,"NULL",fullname, birthday, phone, email);
         customerController.insert(ctm);
+
         JOptionPane.showMessageDialog(this, "Successfully Added");
         showCustomer();
     }//GEN-LAST:event_saveActionPerformed
@@ -251,35 +314,82 @@ public class CustomerFrame extends javax.swing.JFrame {
             Customer ctm = CustomerList.get(selectedIndex);
             int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this customer");
             if (option==0){
+
                 customerController.delete(ctm);
                 JOptionPane.showMessageDialog(this, "Successfully Deleted");
                 showCustomer();
+
             }
         }
+        showCustomer();
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findActionPerformed
-        String input = JOptionPane.showInputDialog(this,"Enter the id of the customer you want to search");
+    private void idfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idfindActionPerformed
+        String input = JOptionPane.showInputDialog(this,"Enter the id of the customer you want to search:");
         if (Integer.parseInt(input)>0 && input!=null){
+
             CustomerList = customerController.findById(Integer.parseInt(input));
+            if (CustomerList.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Cannot find this customer. Please check again!");
+            }
+            Customer ctm = CustomerList.get(0);
+
             tableModel.setRowCount(0);
             CustomerList.forEach((cust) -> {
                 tableModel.addRow(new Object[]{cust.getId(), cust.getFull_name(),
                     cust.getBirthday(), cust.getPhone(), cust.getMail(),
                     cust.getExpenditure(), cust.getRanking()});
             });
+            txtfullname.setText(ctm.getFull_name());
+            birthdate.setText(ctm.getBirthday().toString());
+            txtphone.setText(ctm.getPhone());
+            txtemail.setText(ctm.getMail());
         }
-    }//GEN-LAST:event_findActionPerformed
+    }//GEN-LAST:event_idfindActionPerformed
 
     private void tblcustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblcustomerMouseClicked
         int selectedIndex = tblcustomer.getSelectedRow();
         if (selectedIndex>=0){
             txtfullname.setText(tblcustomer.getValueAt(selectedIndex, 1).toString());
-            birthdate.setDate((Date) tblcustomer.getValueAt(selectedIndex,2));
+            birthdate.setText(tblcustomer.getValueAt(selectedIndex,2).toString());
             txtphone.setText(tblcustomer.getValueAt(selectedIndex, 3).toString());
             txtemail.setText(tblcustomer.getValueAt(selectedIndex, 4).toString());
         } 
     }//GEN-LAST:event_tblcustomerMouseClicked
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        int selectedIndex = tblcustomer.getSelectedRow();
+        if (selectedIndex>=0){
+            int id = Integer.parseInt(tblcustomer.getValueAt(selectedIndex, 0).toString());
+            String fullname = txtfullname.getText();
+            Date birthday = Date.valueOf(birthdate.getText());
+            String phone = txtphone.getText();
+            String email = txtemail.getText();
+            Customercontroller.update(id, fullname, birthday, phone, email);
+            showCustomer();
+        } 
+    }//GEN-LAST:event_editActionPerformed
+
+    private void phonefindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phonefindActionPerformed
+        String input = JOptionPane.showInputDialog(this,"Enter the phone of the customer you want to search:");
+        if (Integer.parseInt(input)>0 && input!=null){
+            CustomerList = Customercontroller.findbyproperty(input);
+            if (CustomerList.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Cannot find this customer. Please check again!");
+            }
+            Customer ctm = CustomerList.get(0);
+            tableModel.setRowCount(0);
+            CustomerList.forEach((cust) -> {
+                tableModel.addRow(new Object[]{cust.getId(), cust.getFull_name(),
+                    cust.getBirthday(), cust.getPhone(), cust.getMail(),
+                    cust.getExpenditure(), cust.getRanking()});
+            });
+            txtfullname.setText(ctm.getFull_name());
+            birthdate.setText(ctm.getBirthday().toString());
+            txtphone.setText(ctm.getPhone());
+            txtemail.setText(ctm.getMail());
+        }
+    }//GEN-LAST:event_phonefindActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,17 +427,21 @@ public class CustomerFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser birthdate;
+    private javax.swing.JTextField birthdate;
     private javax.swing.JButton delete;
-    private javax.swing.JButton find;
+    private javax.swing.JButton edit;
+    private javax.swing.JButton idfind;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton phonefind;
     private javax.swing.JButton reset;
     private javax.swing.JButton save;
     private javax.swing.JTable tblcustomer;

@@ -5,6 +5,7 @@
 package com.clothingstore.frame.staff;
 
 import com.clothingstore.controller.ProductController;
+
 import com.clothingstore.entity.Product;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,9 @@ public class ProductFrame extends javax.swing.JFrame {
    
     
     private void showProduct(){
+
         ProductList = productController.findAll();
+
         tableModel.setRowCount(0);
         ProductList.forEach((prod) -> {
             tableModel.addRow(new Object[]{prod.getProdcode(), prod.getProdname(), prod.getCategory(),
@@ -316,7 +319,9 @@ public class ProductFrame extends javax.swing.JFrame {
     private void btnloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloadActionPerformed
         String cat = catcombo.getItemAt(catcombo.getSelectedIndex());
         String quan = quantitycombo.getItemAt(quantitycombo.getSelectedIndex());
+
         ProductList = productController.findAll(cat, quan);
+
             tableModel.setRowCount(0);
             ProductList.forEach((prod) -> {
                 tableModel.addRow(new Object[]{prod.getProdcode(), prod.getProdname(), prod.getCategory(),
@@ -338,7 +343,9 @@ public class ProductFrame extends javax.swing.JFrame {
         String brand = txtbrand.getText();
         int price = Integer.parseInt(txtprice.getText());
         Product prd = new Product(prodcode,name, category, price, brand);
+
         productController.insert(prd);
+
         JOptionPane.showMessageDialog(this, "Successfully Added");
         showProduct();
     }//GEN-LAST:event_btnaddActionPerformed
@@ -349,15 +356,19 @@ public class ProductFrame extends javax.swing.JFrame {
         String category = combocategory.getItemAt(combocategory.getSelectedIndex());
         String brand = txtbrand.getText();
         int price = Integer.parseInt(txtprice.getText());
+
         Product prd = new Product(prodcode, name, category, price, brand);
         productController.update(prd);
+
         JOptionPane.showMessageDialog(this, "Succesfully saved");
         showProduct();
     }//GEN-LAST:event_btneditActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         String prodfind = txtcode.getText();
+
         ProductList = productController.findById(prodfind);
+
         if (ProductList.isEmpty()){
             JOptionPane.showMessageDialog(this, "Cannot find! Please enter correct Product Code or try again");
         }
@@ -389,7 +400,9 @@ public class ProductFrame extends javax.swing.JFrame {
         int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this item");
             
         if (option==0){
+
             productController.delete(selectedProduct);
+
             showProduct();
         }
     }//GEN-LAST:event_btndeleteActionPerformed

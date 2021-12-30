@@ -4,7 +4,12 @@
  */
 package com.clothingstore.entity;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -12,9 +17,9 @@ import java.sql.Date;
  */
 public class Customer extends User {
     
-    protected int expenditure;
-    protected String ranking;
-    protected int id;
+    private int expenditure;
+    private String ranking;
+    private int id;
 
     public Customer(int expenditure, String ranking, int id, String full_name, Date birthday, String phone, String mail) {
         super(full_name, birthday, phone, mail);

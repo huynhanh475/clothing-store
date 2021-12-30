@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.clothingstore.frame.staff;
+
 import com.clothingstore.controller.StaffController;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,9 @@ public class StaffFrame extends javax.swing.JFrame {
     }
     
     private void showStaff(){
+
         StaffList = staffController.findAll();
+
         tableModel.setRowCount(0);
         StaffList.forEach((staff) -> {
             tableModel.addRow(new Object[]{staff.getId(), staff.getFull_name(),
@@ -52,21 +55,22 @@ public class StaffFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtfullname = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtphone = new javax.swing.JTextField();
-        txtmail = new javax.swing.JTextField();
-        txtsalary = new javax.swing.JTextField();
         btnsave = new javax.swing.JButton();
         btnreset = new javax.swing.JButton();
         btndelete = new javax.swing.JButton();
         btnfind = new javax.swing.JButton();
-        datestarted = new com.toedter.calendar.JDateChooser();
-        datebirthday = new com.toedter.calendar.JDateChooser();
+        datebirthday = new javax.swing.JTextField();
+        datestarted = new javax.swing.JTextField();
+        txtfullname = new javax.swing.JTextField();
+        txtphone = new javax.swing.JTextField();
+        txtmail = new javax.swing.JTextField();
+        txtsalary = new javax.swing.JTextField();
+        btnedit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblstaff = new javax.swing.JTable();
 
@@ -77,12 +81,6 @@ public class StaffFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Full Name:");
 
-        txtfullname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfullnameActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Birthday:");
 
         jLabel3.setText("Phone:");
@@ -92,24 +90,6 @@ public class StaffFrame extends javax.swing.JFrame {
         jLabel6.setText("Date started:");
 
         jLabel7.setText("Salary:");
-
-        txtphone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtphoneActionPerformed(evt);
-            }
-        });
-
-        txtmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtmailActionPerformed(evt);
-            }
-        });
-
-        txtsalary.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtsalaryActionPerformed(evt);
-            }
-        });
 
         btnsave.setText("Save");
         btnsave.addActionListener(new java.awt.event.ActionListener() {
@@ -139,44 +119,91 @@ public class StaffFrame extends javax.swing.JFrame {
             }
         });
 
+        datebirthday.setText("2021-12-27");
+        datebirthday.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datebirthdayActionPerformed(evt);
+            }
+        });
+
+        datestarted.setText("2021-12-27");
+        datestarted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datestartedActionPerformed(evt);
+            }
+        });
+
+        txtfullname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfullnameActionPerformed(evt);
+            }
+        });
+
+        txtphone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtphoneActionPerformed(evt);
+            }
+        });
+
+        txtmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtmailActionPerformed(evt);
+            }
+        });
+
+        txtsalary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtsalaryActionPerformed(evt);
+            }
+        });
+
+        btnedit.setText("Edit");
+        btnedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(25, 25, 25)
+                            .addComponent(txtphone))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(25, 25, 25)
+                            .addComponent(txtfullname))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtmail)
-                                    .addComponent(txtphone)
-                                    .addComponent(txtfullname)
-                                    .addComponent(datebirthday, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)))))
+                            .addGap(25, 25, 25)
+                            .addComponent(datebirthday, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtsalary, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(datestarted, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(datestarted)
+                            .addComponent(txtmail)
+                            .addComponent(txtsalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
                         .addComponent(btnsave)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnreset)
                         .addGap(18, 18, 18)
                         .addComponent(btndelete)
                         .addGap(18, 18, 18)
-                        .addComponent(btnfind)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnedit)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnfind)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnreset)))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,32 +212,33 @@ public class StaffFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtfullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(datebirthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtmail, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(datestarted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(datestarted, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
-                    .addComponent(txtsalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtsalary, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsave)
-                    .addComponent(btnreset)
                     .addComponent(btndelete)
-                    .addComponent(btnfind))
+                    .addComponent(btnfind)
+                    .addComponent(btnedit)
+                    .addComponent(btnreset))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -249,11 +277,98 @@ public class StaffFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
+        txtfullname.setText("");
+        datebirthday.setText("2021-12-27");
+        txtphone.setText("");
+        txtmail.setText("");
+        datestarted.setText("2021-12-27");
+        txtsalary.setText("");
+        showStaff();
+    }//GEN-LAST:event_btnresetActionPerformed
+
+    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
+        String fullname = txtfullname.getText();
+        Date birthday = Date.valueOf(datebirthday.getText());
+        String phone = txtphone.getText();
+        String mail = txtmail.getText();
+        Date datestart = Date.valueOf(datestarted.getText());
+        int salary = Integer.parseInt(txtsalary.getText());
+        Staff stf = new Staff(fullname,birthday, phone, mail, datestart, salary);
+
+        staffController.insert(stf);
+
+        JOptionPane.showMessageDialog(this, "Successfully Added");
+        showStaff();
+    }//GEN-LAST:event_btnsaveActionPerformed
+
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+        int selectedIndex = tblstaff.getSelectedRow();
+        if (selectedIndex>=0){
+            Staff stf = StaffList.get(selectedIndex);
+            
+            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this staff?");
+            
+            if (option==0){
+                
+                staffController.delete(stf);
+                JOptionPane.showMessageDialog(this, "Successfully Deleted");
+
+                showStaff();
+            }
+        }
+    }//GEN-LAST:event_btndeleteActionPerformed
+
+    private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
+        String input = JOptionPane.showInputDialog(this,"Enter ID to search:");
+        if (Integer.parseInt(input)>0 && input != null){
+
+            StaffList = staffController.findbyid(Integer.parseInt(input));
+            if (StaffList.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Cannot find this staff. Please check again!");
+            }
+            Staff stf = StaffList.get(0);
+
+            tableModel.setRowCount(0);
+            StaffList.forEach((staff) -> {
+                tableModel.addRow(new Object[]{staff.getId(), staff.getFull_name(),
+                    staff.getBirthday(), staff.getPhone(), staff.getMail(),
+                    staff.getDate_started(), staff.getSalary()});
+            });
+            txtfullname.setText(stf.getFull_name());
+            datebirthday.setText(stf.getBirthday().toString());
+            txtphone.setText(stf.getPhone());
+            txtmail.setText(stf.getMail());
+            datestarted.setText(stf.getDate_started().toString());
+            txtsalary.setText(Integer.toString(stf.getSalary()));
+        }
+    }//GEN-LAST:event_btnfindActionPerformed
+
+    private void tblstaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblstaffMouseClicked
+        int selectedIndex = tblstaff.getSelectedRow();
+        if (selectedIndex>=0){
+            txtfullname.setText(tblstaff.getValueAt(selectedIndex, 1).toString());
+            datebirthday.setText(tblstaff.getValueAt(selectedIndex,2).toString());
+            txtphone.setText(tblstaff.getValueAt(selectedIndex, 3).toString());
+            txtmail.setText(tblstaff.getValueAt(selectedIndex, 4).toString());
+            datestarted.setText(tblstaff.getValueAt(selectedIndex,5).toString());
+            txtsalary.setText(tblstaff.getValueAt(selectedIndex, 6).toString());
+        }
+    }//GEN-LAST:event_tblstaffMouseClicked
+
+    private void datebirthdayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datebirthdayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datebirthdayActionPerformed
+
+    private void datestartedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datestartedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datestartedActionPerformed
 
     private void txtfullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfullnameActionPerformed
         // TODO add your handling code here:
@@ -271,73 +386,20 @@ public class StaffFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsalaryActionPerformed
 
-    private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
-        txtfullname.setText("");
-        datebirthday.setDate(null);
-        txtphone.setText("");
-        txtmail.setText("");
-        datestarted.setDate(null);
-        txtsalary.setText("");
-        showStaff();
-    }//GEN-LAST:event_btnresetActionPerformed
-
-    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
-        String fullname = txtfullname.getText();
-        java.util.Date bdate, ddate;
-        java.sql.Date birthday, datestart;
-        bdate = datebirthday.getDate();
-        birthday = new java.sql.Date(bdate.getTime());
-        String phone = txtphone.getText();
-        String mail = txtmail.getText();
-        ddate = datestarted.getDate();
-        datestart = new java.sql.Date(ddate.getTime());
-        int salary = Integer.parseInt(txtsalary.getText());
-        Staff stf = new Staff(fullname,birthday, phone, mail, datestart, salary);
-        staffController.insert(stf);
-        JOptionPane.showMessageDialog(this, "Successfully Added");
-        showStaff();
-    }//GEN-LAST:event_btnsaveActionPerformed
-
-    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
         int selectedIndex = tblstaff.getSelectedRow();
         if (selectedIndex>=0){
-            Staff stf = StaffList.get(selectedIndex);
-            
-            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this item");
-            
-            if (option==0){
-                
-                staffController.delete(stf);
-                JOptionPane.showMessageDialog(this, "Successfully Deleted");
-                showStaff();
-            }
-        }
-    }//GEN-LAST:event_btndeleteActionPerformed
-
-    private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
-        String input = JOptionPane.showInputDialog(this,"Enter ID to search:");
-        if (Integer.parseInt(input)>0 && input != null){
-            StaffList = staffController.findById(Integer.parseInt(input));
-            tableModel.setRowCount(0);
-            StaffList.forEach((staff) -> {
-                tableModel.addRow(new Object[]{staff.getId(), staff.getFull_name(),
-                    staff.getBirthday(), staff.getPhone(), staff.getMail(),
-                    staff.getDate_started(), staff.getSalary()});
-            });
-        }
-    }//GEN-LAST:event_btnfindActionPerformed
-
-    private void tblstaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblstaffMouseClicked
-        int selectedIndex = tblstaff.getSelectedRow();
-        if (selectedIndex>=0){
-            txtfullname.setText(tblstaff.getValueAt(selectedIndex, 1).toString());
-            datebirthday.setDate((Date) tblstaff.getValueAt(selectedIndex,2));
-            txtphone.setText(tblstaff.getValueAt(selectedIndex, 3).toString());
-            txtmail.setText(tblstaff.getValueAt(selectedIndex, 4).toString());
-            datestarted.setDate((Date) tblstaff.getValueAt(selectedIndex,5));
-            txtsalary.setText(tblstaff.getValueAt(selectedIndex, 6).toString());
-        }
-    }//GEN-LAST:event_tblstaffMouseClicked
+            int id = Integer.parseInt(tblstaff.getValueAt(selectedIndex, 0).toString());
+            String fullname = txtfullname.getText();
+            Date birthday = Date.valueOf(datebirthday.getText());
+            String phone = txtphone.getText();
+            String email = txtmail.getText();
+            Date datestart = Date.valueOf(datestarted.getText());
+            int salary = Integer.parseInt(txtsalary.getText());
+            Staffcontroller.update(id, fullname, birthday, phone, email, datestart, salary);
+            showStaff();
+        } 
+    }//GEN-LAST:event_btneditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,11 +438,12 @@ public class StaffFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndelete;
+    private javax.swing.JButton btnedit;
     private javax.swing.JButton btnfind;
     private javax.swing.JButton btnreset;
     private javax.swing.JButton btnsave;
-    private com.toedter.calendar.JDateChooser datebirthday;
-    private com.toedter.calendar.JDateChooser datestarted;
+    private javax.swing.JTextField datebirthday;
+    private javax.swing.JTextField datestarted;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
