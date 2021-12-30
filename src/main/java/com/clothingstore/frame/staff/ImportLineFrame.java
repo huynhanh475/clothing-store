@@ -31,7 +31,7 @@ public class ImportLineFrame extends javax.swing.JFrame {
     List<ImportLine> ImportList = new ArrayList<>();
 
     /**
-     * Creates new form ImportlineFrame
+     * Creates new form ImportLineFrame
      */
     public ImportLineFrame() throws SQLException {
         initComponents();

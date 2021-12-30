@@ -361,7 +361,6 @@ public class CustomerFrame extends javax.swing.JFrame {
         int selectedIndex = tblcustomer.getSelectedRow();
         Customer ctm = CustomerList.get(selectedIndex);
         if (selectedIndex>=0){
-            int id = Integer.parseInt(tblcustomer.getValueAt(selectedIndex, 0).toString());
             String fullname = txtfullname.getText();
             Date birthday = Date.valueOf(birthdate.getText());
             String phone = txtphone.getText();
