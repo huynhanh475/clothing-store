@@ -7,6 +7,7 @@ package com.clothingstore.controller;
 import com.clothingstore.entity.ImportLine;
 import com.clothingstore.entity.Product;
 import com.clothingstore.entity.Staff;
+import com.clothingstore.controller.ProductController;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -23,10 +24,10 @@ import java.util.List;
  *
  * @author ACER
  */
-public class Importlinecontroller {
+public class ImportLineController {
     
     public static boolean checkvalid(String code){
-        List<Product> product = Productcontroller.findbyid(code);
+        List<Product> product = new ProductController.findById(code);
         if (!product.isEmpty()){
             return true;
         }else{
@@ -35,7 +36,7 @@ public class Importlinecontroller {
     }
     
     public static boolean checkvalid(int id){
-        List<Staff> stf = Staffcontroller.findbyid(id);
+        List<Staff> stf = new StaffController.findById(id);
         if (!stf.isEmpty()){
             return true;
         }else{
@@ -44,7 +45,7 @@ public class Importlinecontroller {
     }
     
     public static boolean checkvalidimport(int id) throws SQLException{
-        List<ImportLine> ipl = Importlinecontroller.findAll(id);
+        List<ImportLine> ipl = ImportLineController.findAll(id);
         if (!ipl.isEmpty()){
             return true;
         }else{
@@ -66,7 +67,7 @@ public class Importlinecontroller {
             
         while (resultSet.next()){ 
             ImportLine ipl;
-            ipl = new ImportLine(resultSet.getInt("order_id"), resultSet.getInt("quantity"), Productcontroller.findbyid(resultSet.getString("product_code")).get(0), resultSet.getDate("date_imported"), Staffcontroller.findbyid(resultSet.getInt("staff_id")).get(0));
+            ipl = new ImportLine(resultSet.getInt("order_id"), resultSet.getInt("quantity"), new ProductController.findById(resultSet.getString("product_code")).get(0), resultSet.getDate("date_imported"), new StaffController.findById(resultSet.getInt("staff_id")).get(0));
             ImportList.add(ipl);
         }
         //end connection
@@ -83,7 +84,7 @@ public class Importlinecontroller {
         String sql = "insert into import_line(staff_id, product_code, quantity, date_imported) values(?,?,?,?)";
         statement = connection.prepareCall(sql);
         statement.setInt(1, ipl.getPerformer().getId());
-        statement.setString(2, ipl.getCode().getProdcode());
+        statement.setString(2, ipl.getProduct().getProdcode());
         statement.setInt(3, ipl.getQuantity());
         statement.setDate(4, ipl.getDate());
         statement.execute();      
@@ -137,7 +138,7 @@ public class Importlinecontroller {
             
         while (resultSet.next()){ 
             ImportLine ipl;
-            ipl = new ImportLine(resultSet.getInt("order_id"), resultSet.getInt("quantity"), Productcontroller.findbyid(resultSet.getString("product_code")).get(0), resultSet.getDate("date_imported"), Staffcontroller.findbyid(resultSet.getInt("staff_id")).get(0));
+            ipl = new ImportLine(resultSet.getInt("order_id"), resultSet.getInt("quantity"), new ProductController.findById(resultSet.getString("product_code")).get(0), resultSet.getDate("date_imported"), new StaffController.findById(resultSet.getInt("staff_id")).get(0));
             ImportList.add(ipl);
         }
         //end connection
@@ -161,7 +162,7 @@ public class Importlinecontroller {
             
         while (resultSet.next()){ 
             ImportLine ipl;
-            ipl = new ImportLine(resultSet.getInt("order_id"), resultSet.getInt("quantity"), Productcontroller.findbyid(resultSet.getString("product_code")).get(0), resultSet.getDate("date_imported"), Staffcontroller.findbyid(resultSet.getInt("staff_id")).get(0));
+            ipl = new ImportLine(resultSet.getInt("order_id"), resultSet.getInt("quantity"), new ProductController.findById(resultSet.getString("product_code")).get(0), resultSet.getDate("date_imported"), new StaffController.findById(resultSet.getInt("staff_id")).get(0));
             ImportList.add(ipl);
         }
         //end connection
