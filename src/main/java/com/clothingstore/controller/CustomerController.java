@@ -145,6 +145,7 @@ public class CustomerController implements Controller<Customer>{
             statement.setDate(2, new java.sql.Date(ctm.getBirthday().getTime()));
             statement.setString(3, ctm.getPhone());
             statement.setString(4, ctm.getMail());
+            statement.setInt(5, ctm.getId());
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);

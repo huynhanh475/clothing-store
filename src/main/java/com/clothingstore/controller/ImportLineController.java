@@ -223,7 +223,7 @@ public class ImportLineController implements Controller<ImportLine> {
         String sql;
         
         connection = Controller.getConnection();
-        sql = "update Product set quantity=? where prod_code=?";
+        sql = "update product set quantity=? where prod_code=?";
         statement = connection.prepareCall(sql);
         if (choice=="insert"){
             statement.setString(1, Integer.toString(prd.getQuantity()+quantity));

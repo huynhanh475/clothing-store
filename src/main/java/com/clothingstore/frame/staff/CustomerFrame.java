@@ -370,6 +370,7 @@ public class CustomerFrame extends javax.swing.JFrame {
             ctm.setPhone(phone);
             ctm.setMail(email);
             customerController.update(ctm);
+            JOptionPane.showMessageDialog(this, "Successfully Updated");
             showCustomer();
         } 
     }//GEN-LAST:event_editActionPerformed

@@ -130,7 +130,7 @@ public class StaffController implements Controller<Staff> {
             connection = Controller.getConnection();
             
             // query
-            String sql = "update staff set full_name=?, birthday=?, phone=?, mail=?, date_started=?, salary=?) where id=?";
+            String sql = "update staff set full_name=?, birthday=?, phone=?, mail=?, date_started=?, salary=? where id=?";
             statement = connection.prepareCall(sql);
             
             statement.setString(1, stf.getFull_name());
