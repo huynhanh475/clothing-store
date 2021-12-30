@@ -12,6 +12,13 @@ public class ImportLine extends ActionLine {
         this.performer = performer;
     }
 
+    public ImportLine(Date date, Staff performer, int quantity, Product code) {
+        super(quantity, code);
+        this.date = date;
+        this.performer = performer;
+    }
+    
+
     public Date getDate() {
         return date;
     }
