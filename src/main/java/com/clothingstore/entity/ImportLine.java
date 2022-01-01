@@ -6,14 +6,14 @@ public class ImportLine extends ActionLine {
     private Date date;
     private Staff performer;
 
-    public ImportLine(int id, int quantity, Product code, Date date, Staff performer) {
-        super(id, quantity, code);
+    public ImportLine(int id, int quantity, Product product, Date date, Staff performer) {
+        super(id, quantity, product);
         this.date = date;
         this.performer = performer;
     }
 
-    public ImportLine(Date date, Staff performer, int quantity, Product code) {
-        super(quantity, code);
+    public ImportLine(Date date, Staff performer, int quantity, Product product) {
+        super(quantity, product);
         this.date = date;
         this.performer = performer;
     }

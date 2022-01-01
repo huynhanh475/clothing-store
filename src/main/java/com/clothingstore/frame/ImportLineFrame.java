@@ -35,6 +35,7 @@ public class ImportLineFrame extends javax.swing.JFrame {
      */
     public ImportLineFrame() throws SQLException {
         initComponents();
+        this.setLocationRelativeTo(null);
         tableModel = (DefaultTableModel) tblimport.getModel();
         showImport();
     }
@@ -324,16 +325,11 @@ public class ImportLineFrame extends javax.swing.JFrame {
                 check=false;
             }
             if (check==true){
-                try {
-                    Product prd = productController.findById(code).get(0);
-                    Staff stf = staffController.findById(id).get(0);
-                    ImportLine ipl = new ImportLine(date, stf, quantity, prd);
-                    importLineController.insert(ipl);
-                    JOptionPane.showMessageDialog(this, "Successfully added");
-                    importLineController.updateProductQuantity(quantity, prd,"insert");
-                } catch (SQLException ex) {
-                    Logger.getLogger(ImportLineFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Product prd = productController.findById(code).get(0);
+                Staff stf = staffController.findById(id).get(0);
+                ImportLine ipl = new ImportLine(date, stf, quantity, prd);
+                importLineController.insert(ipl);
+                JOptionPane.showMessageDialog(this, "Successfully added");
             }
             showImport();
         } catch (SQLException ex) {
@@ -369,21 +365,20 @@ public class ImportLineFrame extends javax.swing.JFrame {
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         try {
-            String input = JOptionPane.showInputDialog(this,"Enter the id of the import line you want to delete?");
-            if (!importLineController.checkvalidimport(Integer.parseInt(input))){
-                JOptionPane.showMessageDialog(this,"Invalid ID of import line");
-            }
-            else{
-                int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this order line");
-                ImportLine ipl = importLineController.findById(Integer.parseInt(input)).get(0);
-                int quantity = ipl.getQuantity();
-                Product prd = ipl.getProduct();
-                
-                if (option==0){
-                    importLineController.delete(new ImportLine(Integer.parseInt(input), 0, null, null, null));
-                    importLineController.updateProductQuantity(quantity, prd, "delete");
-                    showImport();
-                }
+            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this order line");
+            if (option==0){
+                int selectedIndex = tblimport.getSelectedRow();
+                int importid = (int) tblimport.getValueAt(selectedIndex, 0);
+                int quantity = (int) tblimport.getValueAt(selectedIndex, 4);
+                String prodcode = (String) tblimport.getValueAt(selectedIndex, 2);
+                Product prd = productController.findById(prodcode).get(0);
+                int staffid = (int) tblimport.getValueAt(selectedIndex, 1);
+                Staff stf = staffController.findById(staffid).get(0);
+                Date date = (Date) tblimport.getValueAt(selectedIndex, 3);
+                ImportLine ipl = new ImportLine(importid, quantity, prd, date, stf);
+                importLineController.delete(ipl);
+                JOptionPane.showMessageDialog(this, "Deleted Successfully!");
+                showImport();
             }
         } catch (SQLException ex) {
             Logger.getLogger(ImportLineFrame.class.getName()).log(Level.SEVERE, null, ex);
