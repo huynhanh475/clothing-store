@@ -5,6 +5,9 @@
  */
 package com.clothingstore.frame;
 
+import com.clothingstore.controller.CustomerController;
+import com.clothingstore.controller.OrderController;
+import com.clothingstore.controller.ProductController;
 import com.clothingstore.controller.StaffController;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +76,7 @@ public class StaffFrame extends javax.swing.JFrame {
         btnedit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblstaff = new javax.swing.JTable();
+        bthhome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -239,7 +243,7 @@ public class StaffFrame extends javax.swing.JFrame {
                     .addComponent(btnfind)
                     .addComponent(btnedit)
                     .addComponent(btnreset))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel3.getAccessibleContext().setAccessibleName("Phone");
@@ -265,16 +269,28 @@ public class StaffFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblstaff);
 
+        bthhome.setText("Home");
+        bthhome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bthhomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(bthhome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(bthhome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
@@ -402,6 +418,13 @@ public class StaffFrame extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_btneditActionPerformed
 
+    private void bthhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthhomeActionPerformed
+        dispose();
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
+    }//GEN-LAST:event_bthhomeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -436,8 +459,14 @@ public class StaffFrame extends javax.swing.JFrame {
             }
         });
     }
+    
+    private OrderController orderController = new OrderController();
+    private CustomerController customerController = new CustomerController();
+    private ProductController productController = new ProductController();
+    private StaffController staffController = new StaffController();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bthhome;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnedit;
     private javax.swing.JButton btnfind;
@@ -458,6 +487,5 @@ public class StaffFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtmail;
     private javax.swing.JTextField txtphone;
     private javax.swing.JTextField txtsalary;
-    private StaffController staffController = new StaffController();
     // End of variables declaration//GEN-END:variables
 }

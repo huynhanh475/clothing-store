@@ -87,6 +87,7 @@ public class OrderFrame extends javax.swing.JFrame {
         btnResetOrderForm = new javax.swing.JButton();
         btnAddOrder = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        btnhome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -351,6 +352,13 @@ public class OrderFrame extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 2, 12)); // NOI18N
         jLabel9.setText("*Created orders can't be edited.");
 
+        btnhome.setText("Home");
+        btnhome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -371,20 +379,29 @@ public class OrderFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemoveOrder)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(238, 238, 238)
+                .addComponent(btnhome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemoveOrder)
-                    .addComponent(btnResetOrderForm)
-                    .addComponent(btnAddOrder)
-                    .addComponent(jLabel9))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAddOrder)
+                            .addComponent(btnResetOrderForm)
+                            .addComponent(btnRemoveOrder)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnhome))
         );
 
         pack();
@@ -427,6 +444,13 @@ public class OrderFrame extends javax.swing.JFrame {
     private void btnRemoveOrderLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveOrderLineActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoveOrderLineActionPerformed
+
+    private void btnhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhomeActionPerformed
+        dispose();
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
+    }//GEN-LAST:event_btnhomeActionPerformed
 
     private void initEnities() {
         try {
@@ -518,6 +542,7 @@ public class OrderFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoveOrder;
     private javax.swing.JButton btnRemoveOrderLine;
     private javax.swing.JButton btnResetOrderForm;
+    private javax.swing.JButton btnhome;
     private javax.swing.JComboBox<String> comboCustomer;
     private javax.swing.JComboBox<String> comboProduct;
     private javax.swing.JComboBox<String> comboStaff;
