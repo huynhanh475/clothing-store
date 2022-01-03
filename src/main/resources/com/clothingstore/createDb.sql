@@ -22,7 +22,7 @@ PRIMARY KEY(id)
 
 CREATE TABLE product(
 prod_code VARCHAR(20) NOT NULL,
-prod_name VARCHAR(20),
+prod_name VARCHAR(100),
 category VARCHAR(20),
 quantity INT,
 price INT,

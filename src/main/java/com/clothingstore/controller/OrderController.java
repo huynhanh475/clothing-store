@@ -15,13 +15,15 @@ import com.clothingstore.entity.OrderLine;
 import com.clothingstore.interfaces.Controller;
 
 public class OrderController implements Controller<Order> {
+    private OrderLineController orderLineController = new OrderLineController();
+    private CustomerController customerController = new CustomerController();
 
     @Override
     public void insert(Order order) {
         Connection connection = null;
         try {
             connection = Controller.getConnection();
-            String sql = "INSERT INTO orders (performer_id, customer_id, date, total_money) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO orders (staff_id, customer_id, date_created, total_money) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setInt(1, order.getPerformer().getId());
             statement.setInt(2, order.getCustomer().getId());
@@ -43,7 +45,6 @@ public class OrderController implements Controller<Order> {
                 }
             }
 
-            OrderLineController orderLineController = new OrderLineController();
             for (OrderLine orderLine : order.getOrderLines()) {
                 orderLine.setId(orderId);
                 orderLineController.insert(orderLine);
@@ -52,7 +53,8 @@ public class OrderController implements Controller<Order> {
             Customer customer = order.getCustomer();
             customer.setExpenditure(customer.getExpenditure() + order.getTotalMoney());
             customer.updateRank();
-            new CustomerController().update(customer);
+            Logger.getLogger(OrderController.class.getName()).log(Level.INFO, customer.toString());
+            customerController.update(customer);
         } catch (SQLException ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -68,24 +70,24 @@ public class OrderController implements Controller<Order> {
     @Override
     public void delete(Order order) {
         Connection connection = null;
+        PreparedStatement statement = null;
         try {
             connection = Controller.getConnection();
-            String sql = "DELETE FROM orders WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, order.getId());
-            statement.executeUpdate();
+            String sql = null;
             // Delete order_lines
             for (OrderLine orderLine : order.getOrderLines()) {
-                sql = "DELETE FROM order_line WHERE id = ?";
-                statement = connection.prepareStatement(sql);
-                statement.setInt(1, orderLine.getId());
-                statement.executeUpdate();
+                orderLineController.delete(orderLine);
             }
+            // Delete order
+            sql = "DELETE FROM orders WHERE id = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, order.getId());
+            statement.executeUpdate();
             // Update customer's expenditure
             Customer customer = order.getCustomer();
             customer.setExpenditure(customer.getExpenditure() - order.getTotalMoney());
             customer.updateRank();
-            new CustomerController().update(customer);
+            customerController.update(customer);
         } catch (SQLException ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

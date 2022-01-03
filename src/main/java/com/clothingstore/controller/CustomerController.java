@@ -138,14 +138,16 @@ public class CustomerController implements Controller<Customer>{
             connection = Controller.getConnection();
 
             // query
-            String sql = "update customer set full_name=?, birthday=?, phone=?, mail=? where id=?";
+            String sql = "update customer set full_name=?, birthday=?, phone=?, mail=?, ranking=?, expenditure=? where id=?";
             statement = connection.prepareCall(sql);
             
             statement.setString(1, ctm.getFull_name());
             statement.setDate(2, new java.sql.Date(ctm.getBirthday().getTime()));
             statement.setString(3, ctm.getPhone());
             statement.setString(4, ctm.getMail());
-            statement.setInt(5, ctm.getId());
+            statement.setString(5, ctm.getRanking());
+            statement.setInt(6, ctm.getExpenditure());
+            statement.setInt(7, ctm.getId());
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
