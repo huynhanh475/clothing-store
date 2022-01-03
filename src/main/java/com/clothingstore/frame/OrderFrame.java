@@ -4,14 +4,21 @@
  */
 package com.clothingstore.frame;
 
+import java.awt.Color;
+import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 import com.clothingstore.controller.*;
 import com.clothingstore.entity.*;
@@ -29,22 +36,7 @@ public class OrderFrame extends javax.swing.JFrame {
         // Init Entities and Components
         initEnities();
         initComponents();
-        txtQuantity.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                updateCalMoneyField();
-            }
-            
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                updateCalMoneyField();
-            }
-            
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                updateCalMoneyField();
-            }
-        });
+        initCustomComponents();
     }
 
     /**
@@ -76,17 +68,18 @@ public class OrderFrame extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtStorageQt = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        totalMoney = new javax.swing.JLabel();
+        txtTotalMoney = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         comboCustomer = new javax.swing.JComboBox<>();
         comboStaff = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrder = new javax.swing.JTable();
         btnRemoveOrder = new javax.swing.JButton();
         btnResetOrderForm = new javax.swing.JButton();
         btnAddOrder = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        btnViewDetail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,9 +115,14 @@ public class OrderFrame extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Product Name", "Product Code", "Unit Price", "Quantity", "Amount"
+                "Product Name", "Product Code", "Unit Price", "Quantity", "Money"
             }
         ));
+        tblOrderLine.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOrderLineMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblOrderLine);
 
         btnAddOrderLine.setText("Add");
@@ -216,10 +214,10 @@ public class OrderFrame extends javax.swing.JFrame {
         );
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
-        jLabel7.setText("Total Amount:");
+        jLabel7.setText("Total Money:");
 
-        totalMoney.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
-        totalMoney.setText("0 VND");
+        txtTotalMoney.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
+        txtTotalMoney.setText("0 VND");
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 2, 12)); // NOI18N
         jLabel8.setText("(yyyy-MM-dd. Eg: 2021-12-25)");
@@ -229,6 +227,9 @@ public class OrderFrame extends javax.swing.JFrame {
         }).toArray(String[]::new)));
 
         comboStaff.setModel(new DefaultComboBoxModel<>(staffs.stream().map(Staff::getFull_name).toArray(String[]::new)));
+
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 2, 12)); // NOI18N
+        jLabel9.setText("*Created orders can't be edited.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -243,17 +244,18 @@ public class OrderFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)))
+                        .addComponent(comboCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(60, 60, 60)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(totalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -284,7 +286,8 @@ public class OrderFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(totalMoney))
+                    .addComponent(txtTotalMoney)
+                    .addComponent(jLabel9))
                 .addGap(333, 333, 333))
         );
 
@@ -309,6 +312,11 @@ public class OrderFrame extends javax.swing.JFrame {
                 "ID", "Date", "Customer", "Staff", "No. of Items", "Total Amount"
             }
         ));
+        tblOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOrderMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblOrder);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -348,8 +356,12 @@ public class OrderFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Lucida Grande", 2, 12)); // NOI18N
-        jLabel9.setText("*Created orders can't be edited.");
+        btnViewDetail.setText("View Detail");
+        btnViewDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDetailActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -363,11 +375,12 @@ public class OrderFrame extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAddOrder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnResetOrderForm)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnViewDetail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemoveOrder)))
                 .addContainerGap())
@@ -381,7 +394,7 @@ public class OrderFrame extends javax.swing.JFrame {
                     .addComponent(btnRemoveOrder)
                     .addComponent(btnResetOrderForm)
                     .addComponent(btnAddOrder)
-                    .addComponent(jLabel9))
+                    .addComponent(btnViewDetail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -402,6 +415,8 @@ public class OrderFrame extends javax.swing.JFrame {
         if (txtQuantity.getText().matches("[0-9]+")) {
             if (Integer.parseInt(txtQuantity.getText()) > product.getQuantity()) {
                 txtCalMoney.setText("Not enough quantity.");
+                txtCalMoney.setForeground(Color.RED);
+                return;
             }
             showOrderLineCalculation(product.getPrice(), Integer.parseInt(txtQuantity.getText()));
         }
@@ -409,24 +424,180 @@ public class OrderFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_comboProductActionPerformed
 
     private void btnAddOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrderActionPerformed
-        // TODO add your handling code here:
+        // Check required fields
+        if (comboCustomer.getSelectedIndex() < 0) {
+            JOptionPane.showMessageDialog(this, "Customer not selected.\nAdd Order failed", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (comboStaff.getSelectedIndex() < 0) {
+            JOptionPane.showMessageDialog(this, "Staff not selected.\nAdd Order failed", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (orderLines.size() == 0) {
+            JOptionPane.showMessageDialog(this, "No product added.\nAdd Order failed", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Check date format
+        try {
+            Date.valueOf(txtDate.getText());
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, "Date format incorrect.\nAdd Order failed", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "Customer's name: " + customers.get(comboCustomer.getSelectedIndex()).getFull_name() + " " + customers.get(comboCustomer.getSelectedIndex()).getRanking() + " " + customers.get(comboCustomer.getSelectedIndex()).getExpenditure());
+        Order order = new Order(
+            staffs.get(comboStaff.getSelectedIndex()),
+            customers.get(comboCustomer.getSelectedIndex()),
+            Date.valueOf(txtDate.getText()),
+            totalMoney
+        );
+        for (int i=0; i<orderLines.size(); i++) {
+            orderLines.get(i).setOrder(order);
+        }
+        order.setOrderLines(orderLines);
+        try {
+            orderController.insert(order);
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Add Order failed!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        btnResetOrderFormActionPerformed(evt);
+        orders = orderController.findAll();
+        setDefaultOrderTable();
+
+        JOptionPane.showMessageDialog(this, "Add Order successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        // Check if Customer's rank is changed
+        Customer ctm = order.getCustomer();
+        Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "Customer's name: " + ctm.getFull_name() + " " + ctm.getRanking() + " " + ctm.getExpenditure());
+        String oldRank = ctm.getRanking();
+        ctm.setExpenditure(ctm.getExpenditure() + order.getTotalMoney());
+        if (ctm.updateRank()) {
+            Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "Customer's name: " + ctm.getFull_name() + " " + ctm.getRanking() + " " + ctm.getExpenditure());
+            JOptionPane.showMessageDialog(this, "Customer " + ctm.getFull_name() + " is upranked from " + oldRank + " to " + ctm.getRanking() + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddOrderActionPerformed
 
     private void btnResetOrderFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetOrderFormActionPerformed
-        // TODO add your handling code here:
+        comboStaff.setSelectedIndex(-1);
+        comboCustomer.setSelectedIndex(-1);
+        comboProduct.setSelectedIndex(-1);
+        txtDate.setText("");
+        txtQuantity.setText("0");
+        txtCalMoney.setText("x 0  = 0");
+        txtCalMoney.setForeground(Color.BLACK);
+        txtProductPrice.setText("--");
+        txtStorageQt.setText("--");
+        txtTotalMoney.setText("0 VND");
+        setDefaultOrderLineTable();
+
+        btnRemoveOrderLine.setEnabled(false);
+
     }//GEN-LAST:event_btnResetOrderFormActionPerformed
 
     private void btnRemoveOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveOrderActionPerformed
-        // TODO add your handling code here:
+        int selectedIndex = tblOrder.getSelectedRow();
+        
+        if (selectedIndex < 0) {
+            JOptionPane.showMessageDialog(this, "No order selected.\nRemove Order failed!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure to remove this order?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.NO_OPTION) {
+            return;
+        }
+        Order order = orders.get(selectedIndex);
+        orderController.delete(order);
+        orders.remove(selectedIndex);
+        ((DefaultTableModel) tblOrder.getModel()).removeRow(selectedIndex);
+        JOptionPane.showMessageDialog(this, "Delete order success!", "Delete order", JOptionPane.INFORMATION_MESSAGE);
+        // Check if Customer's rank is changed
+        Customer ctm = order.getCustomer();
+        String oldRank = ctm.getRanking();
+        ctm.setExpenditure(ctm.getExpenditure() - orders.get(selectedIndex).getTotalMoney());
+        if (ctm.updateRank()) {
+            JOptionPane.showMessageDialog(this, "Customer " + ctm.getFull_name() + " is downranked from " + oldRank + " to " + ctm.getRanking() + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnRemoveOrderActionPerformed
 
     private void btnAddOrderLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrderLineActionPerformed
-        // TODO add your handling code here:
+        int selectedProductIndex = comboProduct.getSelectedIndex();
+
+        if (selectedProductIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Product not selected.\nAdd Product failed!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (!txtQuantity.getText().matches("[0-9]+") || Integer.parseInt(txtQuantity.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "Quantity not valid.\nAdd Product failed!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (txtCalMoney.getForeground() == Color.RED) {
+            JOptionPane.showMessageDialog(this, "Not enough quantity in storage.\nAdd Product failed!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Product product = products.get(selectedProductIndex);
+        int quantity = Integer.parseInt(txtQuantity.getText());
+
+        OrderLine orderLine = new OrderLine( quantity, product, null, product.getPrice());
+        addOrderLineToTable(orderLine);
+
+        comboProduct.setSelectedIndex(-1);
+        txtQuantity.setText("0");
+        txtProductPrice.setText("--");
+        txtStorageQt.setText("--");
+        txtCalMoney.setText("x 0  = 0");
+        totalMoney += orderLine.getQuantity() * orderLine.getPrice();
+        setTxtTotalMoney();
     }//GEN-LAST:event_btnAddOrderLineActionPerformed
 
     private void btnRemoveOrderLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveOrderLineActionPerformed
-        // TODO add your handling code here:
+        int selectedIndex = tblOrderLine.getSelectedRow();
+        if (selectedIndex < 0) {
+            return;
+        }
+        totalMoney -= orderLines.get(selectedIndex).getPrice() * orderLines.get(selectedIndex).getQuantity();
+        setTxtTotalMoney();
+        orderLines.remove(selectedIndex);
+        ((DefaultTableModel) tblOrderLine.getModel()).removeRow(selectedIndex);
+        JOptionPane.showMessageDialog(this, "Remove Product success.", "Success", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnRemoveOrderLineActionPerformed
+
+    private void btnViewDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailActionPerformed
+        StringBuilder stringBuilder = new StringBuilder();
+        Order selectedOrder = orders.get(tblOrder.getSelectedRow());
+        String tab = "    ";
+        stringBuilder.append("Order ID: " + selectedOrder.getId()).append("\n");
+        stringBuilder.append("Date: " + selectedOrder.getDate()).append("\n");
+        stringBuilder.append("Customer: " + selectedOrder.getCustomer().getFull_name()).append("\n");
+        stringBuilder.append("Staff: " + selectedOrder.getPerformer().getFull_name()).append("\n");
+        stringBuilder.append(selectedOrder.getOrderLines().size() + " product(s): ").append("\n");
+        for (OrderLine orderLine : selectedOrder.getOrderLines()) {
+            stringBuilder.append(tab).append(orderLine.getProduct().getProdname() + " x " + orderLine.getQuantity() + " = " + formatMoney(orderLine.getPrice() * orderLine.getQuantity()) + " VND").append("\n");
+        }
+        stringBuilder.append("\n").append(tab + "TOTAL: " + formatMoney(selectedOrder.getTotalMoney()) + " VND");
+        JOptionPane.showMessageDialog(this, stringBuilder.toString(), "Order Detail", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnViewDetailActionPerformed
+
+    private void tblOrderLineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrderLineMouseClicked
+        if (tblOrderLine.getSelectedRow() < 0) {
+            return;
+        }
+        btnRemoveOrderLine.setEnabled(true);
+    }//GEN-LAST:event_tblOrderLineMouseClicked
+
+    private void tblOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrderMouseClicked
+        if (tblOrder.getSelectedRow() < 0) {
+            return;
+        }
+        btnViewDetail.setEnabled(true);
+        btnRemoveOrder.setEnabled(true);
+    }//GEN-LAST:event_tblOrderMouseClicked
 
     private void initEnities() {
         try {
@@ -439,7 +610,123 @@ public class OrderFrame extends javax.swing.JFrame {
         }
     }
 
+    private void initCustomComponents() {
+        //Init ComboBoxes
+        comboStaff.setSelectedIndex(-1);
+        comboCustomer.setSelectedIndex(-1);
+        comboProduct.setSelectedIndex(-1);
+        //Add custom listener of txtQuantity
+        txtQuantity.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCalMoneyField();
+            }
+            
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCalMoneyField();
+            }
+            
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCalMoneyField();
+            }
+        });
+        //Set default to tables
+        setDefaultOrderTable();
+        //setDefaultOrderLineTable(); //This is abundant as this table is init empty
+        //Disable buttons
+        btnRemoveOrderLine.setEnabled(false);
+        btnAddOrder.setEnabled(false);
+        btnViewDetail.setEnabled(false);
+        btnRemoveOrder.setEnabled(false);
+    }
 
+    private void setDefaultOrderLineTable() {
+        orderLines = new ArrayList<>();
+        tblOrderLine.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Product Name", "Product Code", "Unit Price", "Quantity", "Money"
+            }
+        ));
+        // Disable add Order and remove OrderLine buttons
+        btnAddOrder.setEnabled(false);
+        btnRemoveOrderLine.setEnabled(false);
+    }
+
+    private void setTxtTotalMoney() {
+        txtTotalMoney.setText(formatMoney(totalMoney) + " VND");
+    }
+
+    private void addOrderLineToTable(OrderLine orderLine) {
+        int money = orderLine.getProduct().getPrice() * orderLine.getQuantity();
+
+        if (orderLines.size() == 0) {
+            orderLines.add(orderLine);
+            
+            tblOrderLine.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {orderLine.getProduct().getProdname(),
+                        orderLine.getProduct().getProdcode(),
+                        orderLine.getProduct().getPrice(),
+                        orderLine.getQuantity(),
+                        money},
+                },
+                new String [] {
+                    "Product Name", "Product Code", "Unit Price", "Quantity", "Money"
+                }
+            ));
+            // Enable add Order
+            btnAddOrder.setEnabled(true);
+
+            return;
+        }
+        // Check if the product is already in the table
+        for (OrderLine ol : orderLines) {
+            if (ol.getProduct().getProdcode().equals(orderLine.getProduct().getProdcode())) {
+                JOptionPane.showMessageDialog(this,
+                    "Product " + orderLine.getProduct().getProdname() + " is already in order.\nAdd Product failed!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        orderLines.add(orderLine);
+        
+        DefaultTableModel model = (DefaultTableModel) tblOrderLine.getModel();
+        model.addRow(new Object[]{
+            orderLine.getProduct().getProdname(),
+            orderLine.getProduct().getProdcode(),
+            orderLine.getProduct().getPrice(),
+            orderLine.getQuantity(),
+            money
+        });
+    
+    }
+
+    private void setDefaultOrderTable() {
+        DefaultTableModel orderTableModel = (DefaultTableModel) tblOrder.getModel();
+        orderTableModel.setRowCount(0);
+
+        for (Order order : orders) {
+            orderTableModel.addRow(new Object[]{
+                order.getId(),
+                order.getDate(),
+                order.getCustomer().getFull_name(),
+                order.getPerformer().getFull_name(),
+                order.getOrderLines().stream().mapToInt(OrderLine::getQuantity).sum(),
+                order.getTotalMoney()
+            });
+        }
+    }
             
     private void updateCalMoneyField() {
         if (!txtProductPrice.getText().matches("[0-9]+")) {
@@ -447,6 +734,7 @@ public class OrderFrame extends javax.swing.JFrame {
         }
         if (!txtQuantity.getText().matches("[0-9]+")) {
             txtCalMoney.setText("Quantity must be a number.");
+            txtCalMoney.setForeground(Color.RED);
             return;
         }
         int quantity = Integer.parseInt(txtQuantity.getText());
@@ -454,6 +742,7 @@ public class OrderFrame extends javax.swing.JFrame {
         int endQuantity = Integer.parseInt(txtStorageQt.getText()) - quantity;
         if (endQuantity < 0) {
             txtCalMoney.setText("Not enough quantity.");
+            txtCalMoney.setForeground(Color.RED);
             return;
         }
         showOrderLineCalculation(price, quantity);
@@ -462,7 +751,19 @@ public class OrderFrame extends javax.swing.JFrame {
 
     private void showOrderLineCalculation(int price, int quantity) {
         int total = price * quantity;
-        txtCalMoney.setText("x " + quantity + "  =" + total);
+        txtCalMoney.setText("x " + quantity + "  = " + formatMoney(total));
+        txtCalMoney.setForeground(Color.BLACK);
+    }
+
+    private String formatMoney(int money) {
+        //format money to groups of 3
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator(' ');
+        DecimalFormat formatter = new DecimalFormat();
+        formatter.setDecimalFormatSymbols(symbols);
+        formatter.setGroupingSize(3);
+
+        return formatter.format(money);
     }
 
     /**
@@ -511,6 +812,9 @@ public class OrderFrame extends javax.swing.JFrame {
     private List<Product> products = new ArrayList<Product>();
     private List<Staff> staffs = new ArrayList<Staff>();
     private List<Order> orders = new ArrayList<Order>();
+    private List<OrderLine> orderLines = new ArrayList<OrderLine>();
+
+    private int totalMoney = 0;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOrder;
@@ -518,6 +822,7 @@ public class OrderFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoveOrder;
     private javax.swing.JButton btnRemoveOrderLine;
     private javax.swing.JButton btnResetOrderForm;
+    private javax.swing.JButton btnViewDetail;
     private javax.swing.JComboBox<String> comboCustomer;
     private javax.swing.JComboBox<String> comboProduct;
     private javax.swing.JComboBox<String> comboStaff;
@@ -538,11 +843,11 @@ public class OrderFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelProductsInp;
     private javax.swing.JTable tblOrder;
     private javax.swing.JTable tblOrderLine;
-    private javax.swing.JLabel totalMoney;
     private javax.swing.JLabel txtCalMoney;
     private javax.swing.JTextField txtDate;
     private javax.swing.JLabel txtProductPrice;
     private javax.swing.JTextField txtQuantity;
     private javax.swing.JLabel txtStorageQt;
+    private javax.swing.JLabel txtTotalMoney;
     // End of variables declaration//GEN-END:variables
 }

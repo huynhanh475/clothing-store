@@ -202,13 +202,14 @@ public class ProductController implements Controller<Product> {
             connection = Controller.getConnection();
             
             // query
-            String sql = "update product set prod_name=?, category=?, price=?, brand=? where prod_code=?";
+            String sql = "update product set prod_name=?, category=?, price=?, brand=?, quantity=? where prod_code=?";
             statement = connection.prepareCall(sql);
             statement.setString(1, prd.getProdname());
             statement.setString(2, prd.getCategory());
             statement.setInt(3, prd.getPrice());
             statement.setString(4, prd.getBrand());
-            statement.setString(5, prd.getProdcode());
+            statement.setInt(5, prd.getQuantity());
+            statement.setString(6, prd.getProdcode());
             
             statement.execute();
         } catch (SQLException ex) {
