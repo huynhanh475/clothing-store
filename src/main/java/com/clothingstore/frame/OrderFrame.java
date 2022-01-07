@@ -79,6 +79,7 @@ public class OrderFrame extends javax.swing.JFrame {
         btnResetOrderForm = new javax.swing.JButton();
         btnAddOrder = new javax.swing.JButton();
         btnViewDetail = new javax.swing.JButton();
+        btnHome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -362,6 +363,13 @@ public class OrderFrame extends javax.swing.JFrame {
             }
         });
 
+        btnHome.setText("Home");
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -370,9 +378,6 @@ public class OrderFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAddOrder)
@@ -381,14 +386,22 @@ public class OrderFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnViewDetail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRemoveOrder)))
+                        .addComponent(btnRemoveOrder))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(btnHome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemoveOrder)
                     .addComponent(btnResetOrderForm)
@@ -443,15 +456,18 @@ public class OrderFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Date format incorrect.\nAdd Order failed", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "Customer's name: " + customers.get(comboCustomer.getSelectedIndex()).getFull_name() + " " + customers.get(comboCustomer.getSelectedIndex()).getRanking() + " " + customers.get(comboCustomer.getSelectedIndex()).getExpenditure());
+
+        Customer ctm = customers.get(comboCustomer.getSelectedIndex());
+        String oldRank = ctm.getRanking();
+        Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO,"Old Rank: " + oldRank );
         Order order = new Order(
             staffs.get(comboStaff.getSelectedIndex()),
-            customers.get(comboCustomer.getSelectedIndex()),
+            ctm,
             Date.valueOf(txtDate.getText()),
             totalMoney
         );
-        for (int i=0; i<orderLines.size(); i++) {
-            orderLines.get(i).setOrder(order);
+        for (OrderLine orderLine : orderLines) {
+            orderLine.setOrder(order);
         }
         order.setOrderLines(orderLines);
         try {
@@ -469,13 +485,15 @@ public class OrderFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Add Order successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
         // Check if Customer's rank is changed
-        Customer ctm = order.getCustomer();
-        Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "Customer's name: " + ctm.getFull_name() + " " + ctm.getRanking() + " " + ctm.getExpenditure());
-        String oldRank = ctm.getRanking();
-        ctm.setExpenditure(ctm.getExpenditure() + order.getTotalMoney());
-        if (ctm.updateRank()) {
+        Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "Old Rank 2: " + oldRank);
+        String newRank = ctm.getRanking();
+        Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "New Rank: " + newRank);
+        if (!oldRank.equals(newRank)) {
             Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "Customer's name: " + ctm.getFull_name() + " " + ctm.getRanking() + " " + ctm.getExpenditure());
-            JOptionPane.showMessageDialog(this, "Customer " + ctm.getFull_name() + " is upranked from " + oldRank + " to " + ctm.getRanking() + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Customer " + ctm.getFull_name() + " is upranked from " + oldRank + " to " + newRank + "!", "Customer Uprank", JOptionPane.INFORMATION_MESSAGE);
+        }
+        for (Customer customer : customers) {
+            Logger.getLogger(OrderFrame.class.getName()).log(Level.INFO, "Customer: " + customer.getFull_name() + ", Rank:" + customer.getRanking() );
         }
     }//GEN-LAST:event_btnAddOrderActionPerformed
 
@@ -597,6 +615,13 @@ public class OrderFrame extends javax.swing.JFrame {
         btnViewDetail.setEnabled(true);
         btnRemoveOrder.setEnabled(true);
     }//GEN-LAST:event_tblOrderMouseClicked
+
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+        dispose();
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
+    }//GEN-LAST:event_btnHomeActionPerformed
 
     private void initEnities() {
         try {
@@ -801,10 +826,10 @@ public class OrderFrame extends javax.swing.JFrame {
     }
 
     // Declare controllers
-    private OrderController orderController = new OrderController();
-    private CustomerController customerController = new CustomerController();
-    private ProductController productController = new ProductController();
-    private StaffController staffController = new StaffController();
+    private final OrderController orderController = new OrderController();
+    private final CustomerController customerController = new CustomerController();
+    private final ProductController productController = new ProductController();
+    private final StaffController staffController = new StaffController();
 
     // Declare entities
     private List<Customer> customers = new ArrayList<Customer>();
@@ -818,6 +843,7 @@ public class OrderFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddOrder;
     private javax.swing.JButton btnAddOrderLine;
+    private javax.swing.JButton btnHome;
     private javax.swing.JButton btnRemoveOrder;
     private javax.swing.JButton btnRemoveOrderLine;
     private javax.swing.JButton btnResetOrderForm;
