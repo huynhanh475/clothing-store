@@ -106,6 +106,11 @@ public class ImportLineController implements Controller<ImportLine> {
             statement.setDate(3, ipl.getDate());
             statement.setInt(4, ipl.getPerformer().getId());
             statement.executeUpdate();
+            
+            ProductController productController = new ProductController();
+            Product product = productController.findById(ipl.getProduct().getProdcode()).get(0);
+            product.setQuantity(product.getQuantity() + ipl.getQuantity());
+            productController.update(product);
         } catch (SQLException ex) {
             Logger.getLogger(ImportLineController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -132,6 +137,11 @@ public class ImportLineController implements Controller<ImportLine> {
             statement = connection.prepareStatement("DELETE FROM import_line WHERE id=?");
             statement.setInt(1, ipl.getId());
             statement.executeUpdate();
+            
+            ProductController productController = new ProductController();
+            Product product = ipl.getProduct();
+            product.setQuantity(product.getQuantity() - ipl.getQuantity());
+            productController.update(product);
         } catch (SQLException ex) {
             Logger.getLogger(ImportLineController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -215,25 +225,6 @@ public class ImportLineController implements Controller<ImportLine> {
         }
         //end connection
         return ImportList;
-    }
-
-    public void updateProductQuantity(int quantity, Product prd, String choice) throws SQLException{
-        Connection connection = null;
-        PreparedStatement statement = null;
-        String sql;
-        
-        connection = Controller.getConnection();
-        sql = "update product set quantity=? where prod_code=?";
-        statement = connection.prepareCall(sql);
-        if (choice=="insert"){
-            statement.setString(1, Integer.toString(prd.getQuantity()+quantity));
-        }
-        if (choice=="delete")
-        {
-            statement.setString(1, Integer.toString(prd.getQuantity()-quantity));
-        }
-        statement.setString(2, prd.getProdcode());
-        statement.execute();
     }
         
 }

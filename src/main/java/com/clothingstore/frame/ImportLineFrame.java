@@ -35,6 +35,7 @@ public class ImportLineFrame extends javax.swing.JFrame {
      */
     public ImportLineFrame() throws SQLException {
         initComponents();
+        this.setLocationRelativeTo(null);
         tableModel = (DefaultTableModel) tblimport.getModel();
         showImport();
     }
@@ -80,6 +81,7 @@ public class ImportLineFrame extends javax.swing.JFrame {
         btnload = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblimport = new javax.swing.JTable();
+        bthhome = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -172,7 +174,7 @@ public class ImportLineFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnload, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addGap(62, 62, 62))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,9 +187,9 @@ public class ImportLineFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtdateto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addComponent(btnload)
-                .addGap(54, 54, 54))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -207,11 +209,11 @@ public class ImportLineFrame extends javax.swing.JFrame {
                         .addComponent(txtquantity, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btndelete)
                         .addGap(18, 18, 18)
                         .addComponent(btnfind)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(btnreset))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,42 +223,40 @@ public class ImportLineFrame extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtquantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(txtquantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnadd)
                     .addComponent(btndelete)
                     .addComponent(btnfind)
                     .addComponent(btnreset))
-                .addContainerGap())
+                .addGap(33, 33, 33))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         tblimport.setModel(new javax.swing.table.DefaultTableModel(
@@ -281,19 +281,33 @@ public class ImportLineFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblimport);
 
+        bthhome.setText("Home");
+        bthhome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bthhomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bthhome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(bthhome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -311,16 +325,11 @@ public class ImportLineFrame extends javax.swing.JFrame {
                 check=false;
             }
             if (check==true){
-                try {
-                    Product prd = productController.findById(code).get(0);
-                    Staff stf = staffController.findById(id).get(0);
-                    ImportLine ipl = new ImportLine(date, stf, quantity, prd);
-                    importLineController.insert(ipl);
-                    JOptionPane.showMessageDialog(this, "Successfully added");
-                    importLineController.updateProductQuantity(quantity, prd,"insert");
-                } catch (SQLException ex) {
-                    Logger.getLogger(ImportLineFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Product prd = productController.findById(code).get(0);
+                Staff stf = staffController.findById(id).get(0);
+                ImportLine ipl = new ImportLine(date, stf, quantity, prd);
+                importLineController.insert(ipl);
+                JOptionPane.showMessageDialog(this, "Successfully added");
             }
             showImport();
         } catch (SQLException ex) {
@@ -356,21 +365,20 @@ public class ImportLineFrame extends javax.swing.JFrame {
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         try {
-            String input = JOptionPane.showInputDialog(this,"Enter the id of the import line you want to delete?");
-            if (!importLineController.checkvalidimport(Integer.parseInt(input))){
-                JOptionPane.showMessageDialog(this,"Invalid ID of import line");
-            }
-            else{
-                int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this order line");
-                ImportLine ipl = importLineController.findById(Integer.parseInt(input)).get(0);
-                int quantity = ipl.getQuantity();
-                Product prd = ipl.getProduct();
-                
-                if (option==0){
-                    importLineController.delete(new ImportLine(Integer.parseInt(input), 0, null, null, null));
-                    importLineController.updateProductQuantity(quantity, prd, "delete");
-                    showImport();
-                }
+            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this order line");
+            if (option==0){
+                int selectedIndex = tblimport.getSelectedRow();
+                int importid = (int) tblimport.getValueAt(selectedIndex, 0);
+                int quantity = (int) tblimport.getValueAt(selectedIndex, 4);
+                String prodcode = (String) tblimport.getValueAt(selectedIndex, 2);
+                Product prd = productController.findById(prodcode).get(0);
+                int staffid = (int) tblimport.getValueAt(selectedIndex, 1);
+                Staff stf = staffController.findById(staffid).get(0);
+                Date date = (Date) tblimport.getValueAt(selectedIndex, 3);
+                ImportLine ipl = new ImportLine(importid, quantity, prd, date, stf);
+                importLineController.delete(ipl);
+                JOptionPane.showMessageDialog(this, "Deleted Successfully!");
+                showImport();
             }
         } catch (SQLException ex) {
             Logger.getLogger(ImportLineFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -414,6 +422,13 @@ public class ImportLineFrame extends javax.swing.JFrame {
         });
         
     }//GEN-LAST:event_btnloadActionPerformed
+
+    private void bthhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthhomeActionPerformed
+        dispose();
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
+    }//GEN-LAST:event_bthhomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -459,6 +474,7 @@ public class ImportLineFrame extends javax.swing.JFrame {
     private StaffController staffController = new StaffController();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bthhome;
     private javax.swing.JButton btnadd;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnfind;

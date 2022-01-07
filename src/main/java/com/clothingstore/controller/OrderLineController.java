@@ -32,6 +32,7 @@ public class OrderLineController implements Controller<OrderLine> {
             ProductController productController = new ProductController();
             Product product = productController.findById(object.getProduct().getProdcode()).get(0);
             product.setQuantity(product.getQuantity() - object.getQuantity());
+            Logger.getLogger(OrderLineController.class.getName()).log(Level.INFO, product.toString());
             productController.update(product);
 
         } catch (SQLException ex) {
@@ -165,7 +166,7 @@ public class OrderLineController implements Controller<OrderLine> {
                 OrderLine orderLine = new OrderLine(result.getInt("id"),
                                                 result.getInt("quantity"),
                                                 new ProductController().findById(result.getString("product_code")).get(0),
-                                                new OrderController().findById(result.getInt("order_id")).get(0),
+                                                order,
                                                 result.getInt("price"));
                 orderLines.add(orderLine);
             }

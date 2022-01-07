@@ -25,6 +25,7 @@ public class CustomerFrame extends javax.swing.JFrame {
      */
     public CustomerFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
         tableModel = (DefaultTableModel) tblcustomer.getModel();
         showCustomer();
     }
@@ -32,7 +33,7 @@ public class CustomerFrame extends javax.swing.JFrame {
     
     private void showCustomer(){
 
-        CustomerList = customerController.findAll();
+        CustomerList = new CustomerController().findAll();
 
         tableModel.setRowCount(0);
         CustomerList.forEach((customer) -> {
@@ -72,6 +73,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         reset = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblcustomer = new javax.swing.JTable();
+        btnhome = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,7 +115,7 @@ public class CustomerFrame extends javax.swing.JFrame {
             }
         });
 
-        birthdate.setText("2012-12-23");
+        birthdate.setText("yyyy-mm-dd");
 
         edit.setText("Edit");
         edit.addActionListener(new java.awt.event.ActionListener() {
@@ -239,7 +241,7 @@ public class CustomerFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save)
                     .addComponent(delete)
@@ -269,19 +271,31 @@ public class CustomerFrame extends javax.swing.JFrame {
             tblcustomer.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        btnhome.setText("Home");
+        btnhome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnhome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(btnhome)
+                .addGap(8, 8, 8)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -302,7 +316,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         String email = txtemail.getText();
 
         Customer ctm = new Customer(0,"NULL",fullname, birthday, phone, email);
-        customerController.insert(ctm);
+        new CustomerController().insert(ctm);
 
         JOptionPane.showMessageDialog(this, "Successfully Added");
         showCustomer();
@@ -315,7 +329,7 @@ public class CustomerFrame extends javax.swing.JFrame {
             int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this customer");
             if (option==0){
 
-                customerController.delete(ctm);
+                new CustomerController().delete(ctm);
                 JOptionPane.showMessageDialog(this, "Successfully Deleted");
                 showCustomer();
 
@@ -328,7 +342,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         String input = JOptionPane.showInputDialog(this,"Enter the id of the customer you want to search:");
         if (Integer.parseInt(input)>0 && input!=null){
 
-            CustomerList = customerController.findById(Integer.parseInt(input));
+            CustomerList = new CustomerController().findById(Integer.parseInt(input));
             if (CustomerList.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Cannot find this customer. Please check again!");
             }
@@ -369,7 +383,7 @@ public class CustomerFrame extends javax.swing.JFrame {
             ctm.setBirthday(birthday);
             ctm.setPhone(phone);
             ctm.setMail(email);
-            customerController.update(ctm);
+            new CustomerController().update(ctm);
             JOptionPane.showMessageDialog(this, "Successfully Updated");
             showCustomer();
         } 
@@ -378,7 +392,7 @@ public class CustomerFrame extends javax.swing.JFrame {
     private void phonefindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phonefindActionPerformed
         String input = JOptionPane.showInputDialog(this,"Enter the phone of the customer you want to search:");
         if (Integer.parseInt(input)>0 && input!=null){
-            CustomerList = customerController.findById(input);
+            CustomerList = new CustomerController().findById(input);
             if (CustomerList.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Cannot find this customer. Please check again!");
             }
@@ -395,6 +409,13 @@ public class CustomerFrame extends javax.swing.JFrame {
             txtemail.setText(ctm.getMail());
         }
     }//GEN-LAST:event_phonefindActionPerformed
+
+    private void btnhomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhomeActionPerformed
+        dispose();
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
+    }//GEN-LAST:event_btnhomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -433,6 +454,7 @@ public class CustomerFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField birthdate;
+    private javax.swing.JButton btnhome;
     private javax.swing.JButton delete;
     private javax.swing.JButton edit;
     private javax.swing.JButton idfind;
@@ -453,6 +475,5 @@ public class CustomerFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtfullname;
     private javax.swing.JTextField txtphone;
-    private CustomerController customerController = new CustomerController();
     // End of variables declaration//GEN-END:variables
 }
