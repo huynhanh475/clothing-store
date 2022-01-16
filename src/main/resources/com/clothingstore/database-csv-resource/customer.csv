@@ -1,0 +1,5 @@
+full_name,birthday,phone,mail,id,expenditure,ranking
+John Doe,1990-07-01,095781297,john.d@example.com,1,900000,NULL
+Alexa,2001-02-06,0903523258,hot@gmail.com,3,1300000,BRONZE
+Monica Houston,2001-12-03,0823850196,monica.h@gmail.com,4,1700000,BRONZE
+Katori Rido,1999-03-15,0985193859,katori.r@example.com,8,3350000,GOLD
