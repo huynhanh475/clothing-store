@@ -329,7 +329,7 @@ public class StaffFrame extends javax.swing.JFrame {
         if (selectedIndex>=0){
             Staff stf = StaffList.get(selectedIndex);
             
-            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this staff?");
+            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this staff?", "Confirmation Dialog", JOptionPane.INFORMATION_MESSAGE);
             
             if (option==0){
                 
@@ -342,7 +342,7 @@ public class StaffFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btndeleteActionPerformed
 
     private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
-        String input = JOptionPane.showInputDialog(this,"Enter ID to search:");
+        String input = JOptionPane.showInputDialog(this,"Enter ID to search:", "Find Staff", JOptionPane.INFORMATION_MESSAGE);
         if (Integer.parseInt(input)>0 && input != null){
 
             StaffList = staffController.findById(Integer.parseInt(input));
@@ -414,6 +414,7 @@ public class StaffFrame extends javax.swing.JFrame {
             int salary = Integer.parseInt(txtsalary.getText());
             Staff stf = new Staff(id, fullname, birthday, phone, email, datestart, salary);
             staffController.update(stf);
+            JOptionPane.showMessageDialog(this, "Successful Update!");
             showStaff();
         } 
     }//GEN-LAST:event_btneditActionPerformed

@@ -11,9 +11,9 @@ import java.sql.Date;
  * @author ACER
  */
 public class Staff extends User {
-    protected int id;
-    protected Date date_started;
-    protected int salary;
+    private int id;
+    private Date date_started;
+    private int salary;
 
     public Staff(int id, String full_name, Date birthday, String phone, String mail, Date date_started, int salary) {
         super(full_name, birthday, phone, mail);
