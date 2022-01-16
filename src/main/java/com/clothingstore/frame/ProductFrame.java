@@ -4,10 +4,7 @@
  */
 package com.clothingstore.frame;
 
-import com.clothingstore.controller.CustomerController;
-import com.clothingstore.controller.OrderController;
 import com.clothingstore.controller.ProductController;
-import com.clothingstore.controller.StaffController;
 
 import com.clothingstore.entity.Product;
 import java.util.ArrayList;

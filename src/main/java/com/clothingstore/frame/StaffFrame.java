@@ -5,9 +5,6 @@
  */
 package com.clothingstore.frame;
 
-import com.clothingstore.controller.CustomerController;
-import com.clothingstore.controller.OrderController;
-import com.clothingstore.controller.ProductController;
 import com.clothingstore.controller.StaffController;
 import java.util.ArrayList;
 import java.util.List;
@@ -461,9 +458,6 @@ public class StaffFrame extends javax.swing.JFrame {
         });
     }
     
-    private OrderController orderController = new OrderController();
-    private CustomerController customerController = new CustomerController();
-    private ProductController productController = new ProductController();
     private StaffController staffController = new StaffController();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

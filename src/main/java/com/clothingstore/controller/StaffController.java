@@ -26,13 +26,6 @@ public class StaffController implements Controller<Staff> {
         Statement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             // query
             String sql = "select * from staff";
@@ -74,13 +67,6 @@ public class StaffController implements Controller<Staff> {
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             // query
             String sql = "insert into staff(full_name, birthday, phone, mail, date_started, salary) values(?,?,?,?,?,?)";
@@ -120,13 +106,6 @@ public class StaffController implements Controller<Staff> {
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             
             // query
@@ -167,13 +146,6 @@ public class StaffController implements Controller<Staff> {
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             
             // query
@@ -209,13 +181,6 @@ public class StaffController implements Controller<Staff> {
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             
             // query
