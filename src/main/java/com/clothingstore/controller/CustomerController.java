@@ -31,13 +31,6 @@ public class CustomerController implements Controller<Customer>{
         Statement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
 
             connection = Controller.getConnection();
 
@@ -81,13 +74,6 @@ public class CustomerController implements Controller<Customer>{
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
             connection = Controller.getConnection();
             // query
             String sql = "insert into customer(full_name, birthday, phone, mail, expenditure, ranking) values(?,?,?,?,?,?)";
@@ -128,13 +114,6 @@ public class CustomerController implements Controller<Customer>{
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
             connection = Controller.getConnection();
 
             // query
@@ -176,13 +155,6 @@ public class CustomerController implements Controller<Customer>{
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
             connection = Controller.getConnection();
             // query
             String sql = "delete from customer where id=?";
@@ -217,13 +189,6 @@ public class CustomerController implements Controller<Customer>{
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection(Controller.ENDPOINT, Controller.USERNAME, Controller.PASSWORD);
             connection = Controller.getConnection();
             // query
             String sql = "select * from customer where id = ?";

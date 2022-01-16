@@ -30,13 +30,6 @@ public class ProductController implements Controller<Product> {
         Statement statement = null;
         String sql;
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
           
             sql = "select * from product order by quantity asc";
@@ -78,13 +71,6 @@ public class ProductController implements Controller<Product> {
         String sql;
         String concat = (cate=="All")? " where quantity=0": " and quantity=0";
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             
             switch (cate) {
@@ -147,13 +133,6 @@ public class ProductController implements Controller<Product> {
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             
             // query
@@ -192,13 +171,6 @@ public class ProductController implements Controller<Product> {
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             
             // query
@@ -238,13 +210,6 @@ public class ProductController implements Controller<Product> {
         PreparedStatement statement = null;
         
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
             
             // query
@@ -280,13 +245,6 @@ public class ProductController implements Controller<Product> {
         Statement statement = null;
         String sql;
         try {
-            // try {
-            //     // retrieve the list of staff
-            //     Class.forName("com.mysql.cj.jdbc.Driver");
-            // } catch (ClassNotFoundException ex) {
-            //     Logger.getLogger(StaffController.class.getName()).log(Level.SEVERE, null, ex);
-            // }
-            // connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_test", "root", "Bochan06022001");
             connection = Controller.getConnection();
 
             sql = "select * from product where prod_code = '"+ code +"'";

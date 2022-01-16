@@ -326,7 +326,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         int selectedIndex = tblcustomer.getSelectedRow();
         if (selectedIndex>=0){
             Customer ctm = CustomerList.get(selectedIndex);
-            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this customer");
+            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this customer", "Confirmation Dialog", JOptionPane.INFORMATION_MESSAGE);
             if (option==0){
 
                 new CustomerController().delete(ctm);
@@ -346,18 +346,20 @@ public class CustomerFrame extends javax.swing.JFrame {
             if (CustomerList.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Cannot find this customer. Please check again!");
             }
-            Customer ctm = CustomerList.get(0);
+            else{
+                Customer ctm = CustomerList.get(0);
 
-            tableModel.setRowCount(0);
-            CustomerList.forEach((cust) -> {
-                tableModel.addRow(new Object[]{cust.getId(), cust.getFull_name(),
-                    cust.getBirthday(), cust.getPhone(), cust.getMail(),
-                    cust.getExpenditure(), cust.getRanking()});
-            });
-            txtfullname.setText(ctm.getFull_name());
-            birthdate.setText(ctm.getBirthday().toString());
-            txtphone.setText(ctm.getPhone());
-            txtemail.setText(ctm.getMail());
+                tableModel.setRowCount(0);
+                CustomerList.forEach((cust) -> {
+                    tableModel.addRow(new Object[]{cust.getId(), cust.getFull_name(),
+                        cust.getBirthday(), cust.getPhone(), cust.getMail(),
+                        cust.getExpenditure(), cust.getRanking()});
+                });
+                txtfullname.setText(ctm.getFull_name());
+                birthdate.setText(ctm.getBirthday().toString());
+                txtphone.setText(ctm.getPhone());
+                txtemail.setText(ctm.getMail());
+            }
         }
     }//GEN-LAST:event_idfindActionPerformed
 
