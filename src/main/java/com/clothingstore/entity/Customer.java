@@ -57,7 +57,7 @@ public class Customer extends User {
         int copper_rank = 1000000;
         int silver_rank = 2000000;
         int gold_rank = 3000000;
-        String newRank = "";
+        String newRank = "NULL";
         
         if (this.expenditure >= gold_rank){
             newRank = "GOLD";
